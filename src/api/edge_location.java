@@ -1,4 +1,5 @@
-package api;
+package ex2.src.api;
+
 
 /**
  * This class represents a position on the graph (a relative position
