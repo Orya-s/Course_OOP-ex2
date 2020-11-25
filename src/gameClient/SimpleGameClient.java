@@ -1,4 +1,4 @@
-package gameClient;
+package ex2.src.gameClient;
 import Server.Game_Server_Ex2;
 import api.directed_weighted_graph;
 import api.edge_data;

@@ -1,4 +1,4 @@
-package gameClient;
+package ex2.src.gameClient;
 import api.edge_data;
 import gameClient.util.Point3D;
 import org.json.JSONObject;
