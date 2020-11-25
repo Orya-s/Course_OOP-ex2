@@ -1,5 +1,6 @@
 package ex2.src.api;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public class NodeData implements node_data {
@@ -28,6 +29,35 @@ public class NodeData implements node_data {
         toEdge= new HashMap<>();
         fromEdge= new HashMap<>();
     }
+
+
+    
+//might have to change - took from ex0 - doesn't contain edge weight
+    public Collection<node_data> getNi() {
+        return toEdge.values();
+    }
+
+    public boolean hasNi(int key) {
+        return toEdge.containsKey(key);
+    }
+
+    public void addNi(node_data t) {
+        toEdge.put(t.getKey(),t);
+    }
+
+    public void addEdgeFrom(node_data t){
+        fromEdge.put(t.getKey(),t);
+    }
+
+    public void removeNode(node_data node) {
+        toEdge.remove(node.getKey(),node);
+    }
+
+    public void removeEdgeFrom(node_data node){
+        fromEdge.remove(node.getKey(),node);
+    }
+
+
 
 
     @Override
