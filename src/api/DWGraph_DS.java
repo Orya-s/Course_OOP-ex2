@@ -1,11 +1,24 @@
 package ex2.src.api;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 public class DWGraph_DS implements directed_weighted_graph{
+    HashMap<Integer, NodeData> graph;
+    HashMap<String,edge_data> edgeList;
+
+    private int edges, mc;
+
+    public DWGraph_DS(){
+        graph= new HashMap<>();
+        this.edges= 0;
+        this.mc= 0;
+    }
+
     @Override
     public node_data getNode(int key) {
-        return null;
+        if(!graph.containsKey(key)) return null;
+        return graph.get(key);
     }
 
     @Override
