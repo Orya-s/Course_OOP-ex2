@@ -31,7 +31,7 @@ public class NodeData implements node_data {
     }
 
 
-    
+
 //might have to change - took from ex0 - doesn't contain edge weight
     public Collection<node_data> getNi() {
         return toEdge.values();
