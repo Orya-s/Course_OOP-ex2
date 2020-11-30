@@ -37,6 +37,10 @@ public class NodeData implements node_data {
         return toEdge.values();
     }
 
+    public Collection<node_data> getParents() {
+        return fromEdge.values();
+    }
+
     public boolean hasNi(int key) {
         return toEdge.containsKey(key);
     }
@@ -49,7 +53,7 @@ public class NodeData implements node_data {
         fromEdge.put(t.getKey(),t);
     }
 
-    public void removeNode(node_data node) {
+    public void removeNi(node_data node) {
         toEdge.remove(node.getKey(),node);
     }
 

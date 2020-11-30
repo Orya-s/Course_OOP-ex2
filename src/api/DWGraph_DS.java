@@ -2,16 +2,15 @@ package ex2.src.api;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class DWGraph_DS implements directed_weighted_graph{
     HashMap<Integer, node_data> graph;
     HashMap<String,edge_data> edgeList;
-
-    private int edges, mc;
+    private int mc;
 
     public DWGraph_DS(){
         graph= new HashMap<>();
-        this.edges= 0;
         this.mc= 0;
     }
 
@@ -50,7 +49,7 @@ public class DWGraph_DS implements directed_weighted_graph{
     public void connect(int src, int dest, double w) {
         if(graph.containsKey(src) && graph.containsKey(dest) && src!=dest){
             if(!hasEdge(src, dest)){    //if there's an edge already- the number of edges doesn't change
-                edges++; mc++;
+                mc++;
             }
             else {
 
@@ -79,26 +78,53 @@ public class DWGraph_DS implements directed_weighted_graph{
 
     @Override
     public node_data removeNode(int key) {
-        return null;
+        if (!graph.containsKey(key)) return null;
+        node_data ans = getNode(key);
+
+        Iterator<node_data> it = ((NodeData)graph.get(key)).getNi().iterator();
+        while(it.hasNext()) {
+            node_data temp = it.next();
+            ((NodeData)temp).removeEdgeFrom(graph.get(key)); //removing the node from the list of parents
+            edgeList.remove(key + "-" + temp.getKey());
+        }
+
+        Iterator<node_data> it2 = ((NodeData)graph.get(key)).getParents().iterator();
+        while(it.hasNext()) {
+            node_data temp = it2.next();
+            ((NodeData)temp).removeNi(graph.get(key)); //removing the node from the list of neighbors
+            edgeList.remove(temp.getKey() + "-" + key);
+        }
+
+        graph.remove(key, getNode(key));
+        mc++;
+        return ans;
     }
 
     @Override
     public edge_data removeEdge(int src, int dest) {
+        if(hasEdge(src, dest)) {
+            ((NodeData) graph.get(src)).removeNi(graph.get(dest));
+            ((NodeData) graph.get(dest)).removeEdgeFrom(graph.get(src));
+            edge_data ans = edgeList.get(src + "-" + dest);
+            edgeList.remove(ans);
+            mc++;
+            return ans;
+        }
         return null;
     }
 
     @Override
     public int nodeSize() {
-        return 0;
+        return graph.size();
     }
 
     @Override
     public int edgeSize() {
-        return 0;
+        return edgeList.size();
     }
 
     @Override
     public int getMC() {
-        return 0;
+        return mc;
     }
 }
