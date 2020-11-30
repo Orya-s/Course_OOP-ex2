@@ -14,6 +14,27 @@ public class DWGraph_DS implements directed_weighted_graph{
         this.mc= 0;
     }
 
+    public DWGraph_DS(DWGraph_DS g){
+        this.graph= new HashMap<>();
+        this.edgeList= new HashMap<>();
+
+        for(node_data n: g.getV()) {   //Building new nodes for the new graph, keeping the keys
+            NodeData temp= new NodeData(n.getKey());
+            temp.setTag(n.getTag());
+            temp.setInfo(n.getInfo());
+            this.graph.put(temp.getKey(), temp);
+        }
+
+        for(node_data n: g.getV()) {   //Setting the list of neighbors for each node
+            for (node_data neighbor: ((NodeData)n).getNi()){
+                double w= g.edgeList.get(n.getKey() + "-" + neighbor.getKey()).getWeight();
+                connect(n.getKey(), neighbor.getKey(), w);
+            }
+        }
+
+        this.mc= g.mc;
+    }
+
     @Override
     public node_data getNode(int key) {
         if(!graph.containsKey(key)) return null;
