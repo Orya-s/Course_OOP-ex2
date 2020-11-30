@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class DWGraph_DS implements directed_weighted_graph{
-    HashMap<Integer, NodeData> graph;
+    HashMap<Integer, node_data> graph;
     HashMap<String,edge_data> edgeList;
 
     private int edges, mc;
@@ -23,36 +23,58 @@ public class DWGraph_DS implements directed_weighted_graph{
 
     @Override
     public edge_data getEdge(int src, int dest) {
-        if(graph.containsKey(src) && graph.containsKey(dest)){
-            if (hasEdge(src, dest)){
-                return edgeList.get(src + "-" + dest);
-            }
+        if (hasEdge(src, dest)){
+            return edgeList.get(src + "-" + dest);
         }
         return null;
     }
 
     public boolean hasEdge(int src, int dest){
-        return graph.get(src).hasNi(dest) && graph.get(src).hasEdgeFrom(dest);
+        if(src==dest) return false;
+        if(graph.containsKey(src) && graph.containsKey(dest)) {
+            return ((NodeData)graph.get(src)).hasNi(dest) && ((NodeData)graph.get(src)).hasEdgeFrom(dest);
+        }
+        return false;
     }
 
     @Override
     public void addNode(node_data n) {
-
+        int node_size = nodeSize();
+        graph.put(n.getKey(), n);
+        if (node_size != nodeSize()){  //if the nodeSize is the same- the node is already int the graph-
+            mc++;                      // so mc shouldn't change
+        }
     }
 
     @Override
     public void connect(int src, int dest, double w) {
+        if(graph.containsKey(src) && graph.containsKey(dest) && src!=dest){
+            if(!hasEdge(src, dest)){    //if there's an edge already- the number of edges doesn't change
+                edges++; mc++;
+            }
+            else {
 
+                if(getEdge(src, dest).getWeight() != w){  //if the edge's weight is the same- the number of mc doesn't change
+                    mc++;
+                }
+            }
+
+            ((NodeData)graph.get(src)).addNi(graph.get(dest));
+            ((NodeData)graph.get(dest)).addEdgeFrom(graph.get(src));
+
+            edgeData e= new edgeData(src,dest,w);
+            edgeList.put(e.getId(),e);
+        }
     }
 
     @Override
     public Collection<node_data> getV() {
-        return null;
+        return graph.values();
     }
 
     @Override
     public Collection<edge_data> getE(int node_id) {
-        return null;
+        return edgeList.values();
     }
 
     @Override

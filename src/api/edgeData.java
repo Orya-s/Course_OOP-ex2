@@ -22,6 +22,10 @@ public class edgeData implements edge_data {
         return counter++;
     }
 
+    public String getId(){
+        return id;
+    }
+
     @Override
     public int getSrc() {
         return src;
