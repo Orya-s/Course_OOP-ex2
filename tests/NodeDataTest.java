@@ -1,35 +1,85 @@
 package ex2.tests;
 
+import ex2.src.api.NodeData;
 import org.junit.jupiter.api.Test;
+
+import java.util.LinkedList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class NodeDataTest {
 
     @Test
     void getNi() {
+        NodeData n = new NodeData();
+        NodeData n1 = new NodeData();
+        n.addNi(n1);
+        assertEquals(1, n.getNi().size());
+
+        n.removeNi(n1);
+        assertEquals(0, n.getNi().size());
     }
 
     @Test
     void hasNi() {
+        NodeData n = new NodeData();
+        NodeData n1 = new NodeData();
+        n.addNi(n1);
+        assertTrue(n.hasNi(n1.getKey()));
+
+        n.removeNi(n1);
+        assertFalse(n.hasNi(n1.getKey()));
     }
 
     @Test
     void addNi() {
+        NodeData n = new NodeData();
+        NodeData n1 = new NodeData();
+        n.addNi(n1);
+        n.addNi(n1);
+        assertEquals(1, n.getNi().size());
     }
 
     @Test
     void addEdgeFrom() {
+        NodeData n = new NodeData();
+        NodeData n1 = new NodeData();
+        n1.addEdgeFrom(n);
+        assertTrue(n1.hasEdgeFrom(n.getKey()));
     }
 
     @Test
-    void removeNode() {
+    void removeNi() {
+        NodeData n = new NodeData();
+        NodeData n1 = new NodeData();
+        n.addNi(n1);
+        assertTrue(n.hasNi(n1.getKey()));
+
+        n.removeNi(n1);
+        assertFalse(n.hasNi(n1.getKey()));
+
+        n.removeNi(n1);
+        assertFalse(n.hasNi(n1.getKey()));
     }
 
     @Test
     void removeEdgeFrom() {
+        NodeData n = new NodeData();
+        NodeData n1 = new NodeData();
+        n1.addEdgeFrom(n);
+        assertTrue(n1.hasEdgeFrom(n.getKey()));
+
+        n1.removeEdgeFrom(n);
+        assertFalse(n1.hasEdgeFrom(n.getKey()));
+
+        n1.removeEdgeFrom(n);
+        assertFalse(n1.hasEdgeFrom(n.getKey()));
     }
 
     @Test
     void getKey() {
+        NodeData n = new NodeData();
+        assertEquals(0,n.getKey());
     }
 
     @Test
@@ -42,10 +92,12 @@ class NodeDataTest {
 
     @Test
     void getWeight() {
+
     }
 
     @Test
     void setWeight() {
+
     }
 
     @Test
@@ -65,138 +117,23 @@ class NodeDataTest {
     }
 
     @Test
-    void testGetNi() {
-    }
-
-    @Test
     void getParents() {
-    }
-
-    @Test
-    void testHasNi() {
-    }
-
-    @Test
-    void testAddNi() {
-    }
-
-    @Test
-    void testAddEdgeFrom() {
-    }
-
-    @Test
-    void removeNi() {
-    }
-
-    @Test
-    void testRemoveEdgeFrom() {
+        NodeData n = new NodeData();
+        NodeData n1 = new NodeData();
+        n1.addEdgeFrom(n);
+        assertTrue(n1.hasEdgeFrom(n.getKey()));
+        assertEquals(1,n1.getParents().size());
     }
 
     @Test
     void hasEdgeFrom() {
+        NodeData n = new NodeData();
+        NodeData n1 = new NodeData();
+        n1.addEdgeFrom(n);
+        assertTrue(n1.hasEdgeFrom(n.getKey()));
+
+        n1.removeEdgeFrom(n);
+        assertFalse(n1.hasEdgeFrom(n.getKey()));
     }
 
-    @Test
-    void testGetKey() {
-    }
-
-    @Test
-    void testGetLocation() {
-    }
-
-    @Test
-    void testSetLocation() {
-    }
-
-    @Test
-    void testGetWeight() {
-    }
-
-    @Test
-    void testSetWeight() {
-    }
-
-    @Test
-    void testGetInfo() {
-    }
-
-    @Test
-    void testSetInfo() {
-    }
-
-    @Test
-    void testGetTag() {
-    }
-
-    @Test
-    void testSetTag() {
-    }
-
-    @Test
-    void testGetNi1() {
-    }
-
-    @Test
-    void testGetParents() {
-    }
-
-    @Test
-    void testHasNi1() {
-    }
-
-    @Test
-    void testAddNi1() {
-    }
-
-    @Test
-    void testAddEdgeFrom1() {
-    }
-
-    @Test
-    void testRemoveNi() {
-    }
-
-    @Test
-    void testRemoveEdgeFrom1() {
-    }
-
-    @Test
-    void testHasEdgeFrom() {
-    }
-
-    @Test
-    void testGetKey1() {
-    }
-
-    @Test
-    void testGetLocation1() {
-    }
-
-    @Test
-    void testSetLocation1() {
-    }
-
-    @Test
-    void testGetWeight1() {
-    }
-
-    @Test
-    void testSetWeight1() {
-    }
-
-    @Test
-    void testGetInfo1() {
-    }
-
-    @Test
-    void testSetInfo1() {
-    }
-
-    @Test
-    void testGetTag1() {
-    }
-
-    @Test
-    void testSetTag1() {
-    }
 }

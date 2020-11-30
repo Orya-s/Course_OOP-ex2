@@ -65,8 +65,6 @@ public class NodeData implements node_data {
         return fromEdge.containsKey(srcKey);
     }
 
-
-
     @Override
     public int getKey() {
         return key;
