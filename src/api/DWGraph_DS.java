@@ -11,6 +11,7 @@ public class DWGraph_DS implements directed_weighted_graph{
 
     public DWGraph_DS(){
         graph= new HashMap<>();
+        edgeList= new HashMap<>();
         this.mc= 0;
     }
 
@@ -52,7 +53,7 @@ public class DWGraph_DS implements directed_weighted_graph{
     public boolean hasEdge(int src, int dest){
         if(src==dest) return false;
         if(graph.containsKey(src) && graph.containsKey(dest)) {
-            return ((NodeData)graph.get(src)).hasNi(dest) && ((NodeData)graph.get(src)).hasEdgeFrom(dest);
+            return ((NodeData)graph.get(src)).hasNi(dest) && ((NodeData)graph.get(dest)).hasEdgeFrom(src);
         }
         return false;
     }

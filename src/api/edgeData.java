@@ -14,7 +14,6 @@ public class edgeData implements edge_data {
         this.dest= dest;
         this.weight= weight;
         this.id= src + "-" + dest;
-
         this.key= counter();  //unique key of the edge
     }
 

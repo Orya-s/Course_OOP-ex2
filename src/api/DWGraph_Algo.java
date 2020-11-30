@@ -6,6 +6,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     private directed_weighted_graph dw_graph;
 
+
+
     public DWGraph_Algo() {
         dw_graph = new DWGraph_DS();
     }
@@ -103,7 +105,14 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     @Override
     public double shortestPathDist(int src, int dest) {
-        return 0;
+        if (src == dest) return 0;
+
+        if (dw_graph.getV().contains(dw_graph.getNode(src)) && dw_graph.getV().contains(dw_graph.getNode(dest))) {
+            node_data start = dw_graph.getNode(src);
+            node_data end = dw_graph.getNode(dest);
+            return DijkstraAlgo(start, end);
+        }
+        return -1;
     }
 
     @Override
@@ -119,6 +128,41 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     @Override
     public boolean load(String file) {
         return false;
+    }
+
+
+    private double DijkstraAlgo(node_data start, node_data end){
+        PriorityQueue<node_data> q= new PriorityQueue<>(Comparator.comparingDouble(node_data::getWeight));
+
+        for (node_data node : dw_graph.getV()) {
+            node.setInfo("null");
+            node.setWeight(Double.MAX_VALUE);
+        }
+        start.setWeight(0);
+        q.add(start);
+        while (!q.isEmpty()) {
+
+            node_data curr= q.remove();
+            if (!curr.getInfo().contains("visited")) {
+                curr.setInfo(curr.getInfo() + " visited");
+                if (curr.getKey() == end.getKey()) {
+                    return curr.getWeight();
+                }
+
+                for (node_data neighbor : ((NodeData)dw_graph.getNode(curr.getKey())).getNi()) {
+                    if (!neighbor.getInfo().contains("visited")) {
+                        double distance = curr.getWeight() + dw_graph.getEdge(curr.getKey(),neighbor.getKey()).getWeight();
+                        if (distance < neighbor.getWeight()) {
+                            neighbor.setWeight(distance);
+                            neighbor.setInfo(curr.getKey() + "");
+                            q.add(neighbor);
+                        }
+                    }
+                }
+            }
+        }
+
+        return -1;
     }
 
 
