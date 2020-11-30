@@ -23,7 +23,16 @@ public class DWGraph_DS implements directed_weighted_graph{
 
     @Override
     public edge_data getEdge(int src, int dest) {
+        if(graph.containsKey(src) && graph.containsKey(dest)){
+            if (hasEdge(src, dest)){
+                return edgeList.get(src + "-" + dest);
+            }
+        }
         return null;
+    }
+
+    public boolean hasEdge(int src, int dest){
+        return graph.get(src).hasNi(dest) && graph.get(src).hasEdgeFrom(dest);
     }
 
     @Override

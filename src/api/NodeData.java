@@ -57,6 +57,9 @@ public class NodeData implements node_data {
         fromEdge.remove(node.getKey(),node);
     }
 
+    public boolean hasEdgeFrom(int srcKey){
+        return fromEdge.containsKey(srcKey);
+    }
 
 
 
