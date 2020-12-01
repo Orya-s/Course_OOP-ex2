@@ -3,7 +3,7 @@ package ex2.src.api;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class NodeData implements node_data {
+public class NodeData implements node_data, java.io.Serializable {
 
     private int key, tag;
     private String info;
@@ -109,4 +109,9 @@ public class NodeData implements node_data {
     public void setTag(int t) {
         this.tag= t;
     }
+
+    public String toString(){
+        return  "Node- Key:" + key ;
+    }
+
 }

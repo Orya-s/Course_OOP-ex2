@@ -1,6 +1,9 @@
 package ex2.src.api;
 
 import java.util.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 
 public class DWGraph_Algo implements dw_graph_algorithms {
 
@@ -117,11 +120,22 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     @Override
     public List<node_data> shortestPath(int src, int dest) {
-        return null;
+        if(src == dest) {
+            LinkedList<node_data> ans= new LinkedList<>();
+            ans.add(dw_graph.getNode(src));
+            return ans;
+        }
+        if(shortestPathDist(src, dest) == -1) return null;
+
+        return getPath(dw_graph.getNode(src), dw_graph.getNode(dest));
     }
 
     @Override
     public boolean save(String file) {
+
+        Gson gson= new Gson();
+        String json= gson.toJson(dw_graph);
+
         return false;
     }
 
@@ -163,6 +177,30 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         }
 
         return -1;
+    }
+
+
+    private List<node_data> getPath(node_data start, node_data end){
+        LinkedList<node_data> ans= new LinkedList<>();
+        if(end.getWeight() == Double.MAX_VALUE) return null;
+
+        if(start == end){
+            ans.add(start);
+            return ans;
+        }
+
+        node_data temp= end;
+        String info="";
+        while (temp != start){
+            ans.addFirst(temp);
+            info= temp.getInfo();
+            String[] getKey = info.split(" ");
+            int key= Integer.parseInt(getKey[0]);
+            temp= dw_graph.getNode(key);
+        }
+        ans.addFirst(start);
+
+        return ans;
     }
 
 
