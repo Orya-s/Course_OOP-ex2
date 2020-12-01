@@ -1,5 +1,7 @@
 package ex2.src.api;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class edgeData implements edge_data {
@@ -59,4 +61,6 @@ public class edgeData implements edge_data {
     public void setTag(int t) {
         this.tag= t;
     }
+
+
 }

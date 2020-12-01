@@ -1,8 +1,12 @@
 package ex2.src.api;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+import com.google.gson.*;
 
 
 public class DWGraph_Algo implements dw_graph_algorithms {
@@ -133,15 +137,58 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     @Override
     public boolean save(String file) {
 
-        Gson gson= new Gson();
-        String json= gson.toJson(dw_graph);
+        JsonObject graph= new JsonObject();
+        JsonArray edges= new JsonArray();
+        JsonArray nodes= new JsonArray();
 
-        return false;
+        for(edge_data e: ((DWGraph_DS)dw_graph).getE()){
+            JsonObject edge= new JsonObject();
+            edge.addProperty("src",e.getSrc());
+            edge.addProperty("w",e.getWeight());
+            edge.addProperty("dest",e.getDest());
+            edges.add(edge);
+        }
+        for (node_data n: dw_graph.getV()){
+            JsonObject node= new JsonObject();
+            node.addProperty("pos", 0);
+            node.addProperty("id", n.getKey());
+            nodes.add(node);
+        }
+        graph.add("Edges",edges);
+        graph.add("Nodes",nodes);
+
+        try
+        {
+            Gson gson = new Gson();
+            PrintWriter pw = new PrintWriter(new File(file));
+            pw.write(gson.toJson(graph));
+            pw.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean load(String file) {
-        return false;
+        try {
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(DWGraph_DS.class, new DW_GraphJsonDeserializer());
+            Gson gson = builder.create();
+
+            FileReader reader = new FileReader(file);
+            directed_weighted_graph graph = gson.fromJson(reader, DWGraph_DS.class);
+            this.dw_graph= graph;
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
 

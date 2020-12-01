@@ -1,4 +1,5 @@
 package ex2.src.api;
+import com.google.gson.Gson;
 import ex2.src.api.*;
 public class main {
     public static void main(String[] args) {
@@ -71,6 +72,11 @@ public class main {
         g1.addNode(n10);
         g1.connect(10,6,2);
         System.out.println(ga.shortestPath(1,10) + "     SHOULD PRINT- null");
+
+        ga.save("C:\\Users\\oryas\\IdeaProjects\\Ex\\src\\ex2.DWGraph_DS.json");
+        ga.load("C:\\Users\\oryas\\IdeaProjects\\Ex\\src\\ex2\\data\\A1");
+        System.out.println(ga.getGraph());
+        System.out.println(ga.getGraph().getNode(0).getLocation());
 
 
 

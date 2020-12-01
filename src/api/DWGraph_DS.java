@@ -1,5 +1,6 @@
 package ex2.src.api;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -93,6 +94,10 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
         return graph.values();
     }
 
+    public Collection<edge_data> getE(){
+        return  edgeList.values();
+    }
+
     @Override
     public Collection<edge_data> getE(int node_id) {
         return edgeList.values();
@@ -148,5 +153,11 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
     @Override
     public int getMC() {
         return mc;
+    }
+
+
+    public String toString(){
+        String temp= "Graph: "+graph;
+        return temp;
     }
 }
