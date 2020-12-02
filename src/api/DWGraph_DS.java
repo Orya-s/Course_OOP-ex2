@@ -113,6 +113,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
             node_data temp = it.next();
             ((NodeData)temp).removeEdgeFrom(graph.get(key)); //removing the node from the list of parents
             edgeList.remove(key + "-" + temp.getKey());
+            mc++;
         }
 
         Iterator<node_data> it2 = ((NodeData)graph.get(key)).getParents().iterator();
@@ -133,7 +134,7 @@ public class DWGraph_DS implements directed_weighted_graph, java.io.Serializable
             ((NodeData) graph.get(src)).removeNi(graph.get(dest));
             ((NodeData) graph.get(dest)).removeEdgeFrom(graph.get(src));
             edge_data ans = edgeList.get(src + "-" + dest);
-            edgeList.remove(ans);
+            edgeList.remove(src + "-" + dest);
             mc++;
             return ans;
         }
