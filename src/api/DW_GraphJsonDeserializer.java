@@ -27,7 +27,6 @@ public class DW_GraphJsonDeserializer implements JsonDeserializer<directed_weigh
             double z= Double.parseDouble(posSplit[2]);
             geo_location geoLoc= new GeoLocation(x,y,z);
             n.setLocation(geoLoc);
-            System.out.println(n.getLocation() +"      hi");
 
             graph.addNode(n);
         }

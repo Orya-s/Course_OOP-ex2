@@ -1,5 +1,6 @@
 package ex2.tests;
 
+import ex2.src.api.GeoLocation;
 import ex2.src.api.NodeData;
 import org.junit.jupiter.api.Test;
 
@@ -84,36 +85,75 @@ class NodeDataTest {
 
     @Test
     void getLocation() {
+        NodeData n = new NodeData();
+        GeoLocation loc= new GeoLocation();
+        n.setLocation(loc);
+        assertEquals(0.0,n.getLocation().x());
+        assertEquals(0.0,n.getLocation().y());
+        assertEquals(0.0,n.getLocation().z());
     }
 
     @Test
     void setLocation() {
+        NodeData n = new NodeData();
+        GeoLocation loc= new GeoLocation();
+        n.setLocation(loc);
+        assertEquals(0.0,n.getLocation().x());
+        assertEquals(0.0,n.getLocation().y());
+        assertEquals(0.0,n.getLocation().z());
+
+        GeoLocation loc1= new GeoLocation(1,2,3);
+        n.setLocation(loc1);
+        assertEquals(1.0,n.getLocation().x());
+        assertEquals(2.0,n.getLocation().y());
+        assertEquals(3.0,n.getLocation().z());
     }
 
     @Test
     void getWeight() {
-
+        NodeData n = new NodeData();
+        assertEquals(0.0,n.getWeight());
     }
 
     @Test
     void setWeight() {
+        NodeData n = new NodeData();
+        assertEquals(0.0,n.getWeight());
 
+        n.setWeight(1.1);
+        assertEquals(1.1,n.getWeight());
     }
 
     @Test
     void getInfo() {
+        NodeData n = new NodeData();
+        assertNull(n.getInfo());
+        n.setInfo("A");
+        assertEquals("A",n.getInfo());
     }
 
     @Test
     void setInfo() {
+        NodeData n = new NodeData();
+        assertNull(n.getInfo());
+        n.setInfo("A");
+        assertEquals("A",n.getInfo());
     }
 
     @Test
     void getTag() {
+        NodeData n = new NodeData();
+        assertEquals(0,n.getTag());
+        n.setTag(1);
+        assertEquals(1,n.getTag());
     }
 
     @Test
     void setTag() {
+        NodeData n = new NodeData();
+        assertEquals(0,n.getTag());
+        n.setTag(1);
+        assertEquals(1,n.getTag());
     }
 
     @Test
