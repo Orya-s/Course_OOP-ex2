@@ -1,6 +1,6 @@
-package ex2.src.api;
+package api;
 import com.google.gson.Gson;
-import ex2.src.api.*;
+import api.*;
 public class main {
     public static void main(String[] args) {
         NodeData n0= new NodeData();

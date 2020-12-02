@@ -1,7 +1,4 @@
-package ex2.tests;
-
-import ex2.src.api.GeoLocation;
-import ex2.src.api.NodeData;
+import api.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;

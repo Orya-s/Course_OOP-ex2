@@ -1,9 +1,4 @@
-package ex2.tests;
-
-import ex2.src.api.DWGraph_DS;
-import ex2.src.api.NodeData;
-import ex2.src.api.directed_weighted_graph;
-import ex2.src.api.node_data;
+import api.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
