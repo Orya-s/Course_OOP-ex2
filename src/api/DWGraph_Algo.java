@@ -180,8 +180,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
             Gson gson = builder.create();
 
             FileReader reader = new FileReader(file);
-            directed_weighted_graph graph = gson.fromJson(reader, DWGraph_DS.class);
-            this.dw_graph= graph;
+            this.dw_graph= gson.fromJson(reader, DWGraph_DS.class);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
