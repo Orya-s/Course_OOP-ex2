@@ -1,9 +1,7 @@
 package gameClient;
 
 import Server.Game_Server_Ex2;
-import api.directed_weighted_graph;
-import api.edge_data;
-import api.game_service;
+import api.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,14 +15,14 @@ public class Ex2 implements Runnable {
     private static MyFrame _win;
     private static Arena _ar;
     public static void main(String[] a) {
-        Thread client = new Thread(new Ex2_Client());
+        Thread client = new Thread(new Ex2());
         client.start();
     }
 
 
     @Override
     public void run() {
-        int scenario_num = 1;
+        int scenario_num = 23;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
         //	int id = 999;
         //	game.login(id);
@@ -41,7 +39,7 @@ public class Ex2 implements Runnable {
         while(game.isRunning()) {
             moveAgents(game, gg);
             try {
-                if(ind%2==0) {_win.repaint();}
+                if(ind%3==0) {_win.repaint();}
                 Thread.sleep(dt);
                 ind++;
             }
@@ -92,14 +90,48 @@ public class Ex2 implements Runnable {
      */
     private static int nextNode(directed_weighted_graph g, int src) {
         int ans = -1;
-        Collection<edge_data> ee = g.getE(src);
-        Iterator<edge_data> itr = ee.iterator();
-        int s = ee.size();
-        int r = (int)(Math.random()*s);
-        int i=0;
-        while(i<r) {itr.next();i++;}
-        ans = itr.next().getDest();
-        return ans;
+
+        //FIRST MOVE
+        Collection<CL_Pokemon> pokeC = _ar.getPokemons();
+        Iterator<CL_Pokemon> itr1 = pokeC.iterator();
+        while(itr1.hasNext()){
+            CL_Pokemon temp= itr1.next();
+            Arena.updateEdge(temp,g);
+
+            if(temp.get_edge().getSrc() == src)
+                return temp.get_edge().getDest();
+        }
+
+
+        dw_graph_algorithms ga= new DWGraph_Algo();
+        ga.init(g);
+        double dist= Double.MAX_VALUE;
+        int key=-1;
+        Collection<CL_Pokemon> poke = _ar.getPokemons();
+        Iterator<CL_Pokemon> itr2 = poke.iterator();
+        while (itr2.hasNext()){
+            CL_Pokemon temp= itr2.next();
+            Arena.updateEdge(temp,g);
+            double distTemp= ga.shortestPathDist(src,temp.get_edge().getSrc());
+            if(distTemp < dist){
+                dist= distTemp;
+                key= temp.get_edge().getSrc();
+            }
+        }
+        return key;
+
+
+
+        //DEFAULT
+//        int ans = -1;
+//        Collection<edge_data> ee = g.getE(src);
+//        Iterator<edge_data> itr = ee.iterator();
+//        int s = ee.size();
+//        int r = (int)(Math.random()*s);
+//        int i=0;
+//        while(i<r) {itr.next();i++;}
+//        ans = itr.next().getDest();
+//        return ans;
     }
     private void init(game_service game) {
         String g = game.getGraph();
@@ -129,10 +161,19 @@ public class Ex2 implements Runnable {
             for(int a = 0;a<rs;a++) {
                 int ind = a%cl_fs.size();
                 CL_Pokemon c = cl_fs.get(ind);
+                System.out.println((c.get_edge()) + "  " + c.get_edge().getDest()); ///////////////
                 int nn = c.get_edge().getDest();
                 if(c.getType()<0 ) {nn = c.get_edge().getSrc();}
 
                 game.addAgent(nn);
+
+                Collection<CL_Pokemon> pokeC = _ar.getPokemons();
+                Iterator<CL_Pokemon> itr = pokeC.iterator();
+                while(itr.hasNext()) {
+                    CL_Pokemon temp = itr.next();
+                    Arena.updateEdge(_ar.getPokemons().get(0),_ar.getGraph());
+
+                }
             }
         }
         catch (JSONException e) {e.printStackTrace();}

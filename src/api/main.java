@@ -73,8 +73,8 @@ public class main {
         g1.connect(10,6,2);
         System.out.println(ga.shortestPath(1,10) + "     SHOULD PRINT- null");
 
-        ga.save("C:\\Users\\oryas\\IdeaProjects\\Ex\\src\\ex2.DWGraph_DS.json");
-        ga.load("C:\\Users\\oryas\\IdeaProjects\\Ex\\src\\ex2\\data\\A1");
+//        ga.save("C:\\Users\\oryas\\IdeaProjects\\Ex\\src\\ex2.DWGraph_DS.json");
+//        ga.load("C:\\Users\\oryas\\IdeaProjects\\Ex\\data\\ex2\\data\\A1");
         System.out.println(ga.getGraph());
         System.out.println(ga.getGraph().getNode(0).getLocation());
 
