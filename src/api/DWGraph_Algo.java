@@ -209,7 +209,16 @@ public class DWGraph_Algo implements dw_graph_algorithms {
                     return curr.getWeight();
                 }
 
-                for (node_data neighbor : ((NodeData)dw_graph.getNode(curr.getKey())).getNi()) {
+
+
+                //                for (edge_data e : dw_graph.getE(curr.getKey())) {
+//                    node_data neighbor= dw_graph.getNode(e.getDest());
+
+
+
+                for (edge_data e : dw_graph.getE(curr.getKey())) {
+                    node_data neighbor= dw_graph.getNode(e.getDest());
+
                     if (!neighbor.getInfo().contains("visited")) {
                         double distance = curr.getWeight() + dw_graph.getEdge(curr.getKey(),neighbor.getKey()).getWeight();
                         if (distance < neighbor.getWeight()) {

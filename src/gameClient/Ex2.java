@@ -5,10 +5,7 @@ import api.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Ex2 implements Runnable {
 
@@ -22,7 +19,7 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 23;
+        int scenario_num = 1;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
         //	int id = 999;
         //	game.login(id);
@@ -106,7 +103,8 @@ public class Ex2 implements Runnable {
         dw_graph_algorithms ga= new DWGraph_Algo();
         ga.init(g);
         double dist= Double.MAX_VALUE;
-        int key=-1;
+        int key= -1;
+        int keyDest= -1;
         Collection<CL_Pokemon> poke = _ar.getPokemons();
         Iterator<CL_Pokemon> itr2 = poke.iterator();
         while (itr2.hasNext()){
@@ -116,14 +114,17 @@ public class Ex2 implements Runnable {
             if(distTemp < dist){
                 dist= distTemp;
                 key= temp.get_edge().getSrc();
+                keyDest= temp.get_edge().getDest();
             }
         }
-        return key;
+        List<node_data> ll=ga.shortestPath(src,key);
+        return ll.get(1).getKey();
+
 
 
 
         //DEFAULT
-//        int ans = -1;
+//         ans = -1;
 //        Collection<edge_data> ee = g.getE(src);
 //        Iterator<edge_data> itr = ee.iterator();
 //        int s = ee.size();
