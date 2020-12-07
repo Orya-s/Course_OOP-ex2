@@ -19,7 +19,7 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 1;
+        int scenario_num = 23;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
         //	int id = 999;
         //	game.login(id);
@@ -105,18 +105,25 @@ public class Ex2 implements Runnable {
         double dist= Double.MAX_VALUE;
         int key= -1;
         int keyDest= -1;
-        Collection<CL_Pokemon> poke = _ar.getPokemons();
+        List<CL_Pokemon> poke = _ar.getPokemons();
         Iterator<CL_Pokemon> itr2 = poke.iterator();
+        int f=-1;
+        int counter= -1;
         while (itr2.hasNext()){
+            counter++;
             CL_Pokemon temp= itr2.next();
-            Arena.updateEdge(temp,g);
-            double distTemp= ga.shortestPathDist(src,temp.get_edge().getSrc());
-            if(distTemp < dist){
-                dist= distTemp;
-                key= temp.get_edge().getSrc();
-                keyDest= temp.get_edge().getDest();
-            }
+//            if(temp.getMin_dist()==-1) {
+                Arena.updateEdge(temp, g);
+                double distTemp = ga.shortestPathDist(src, temp.get_edge().getSrc());
+                if (distTemp < dist) {
+                    dist = distTemp;
+                    key = temp.get_edge().getSrc();
+                    f= counter;
+                }
+//            }
         }
+        CL_Pokemon dest= poke.get(f);
+        dest.setMin_dist(dist);
         List<node_data> ll=ga.shortestPath(src,key);
         return ll.get(1).getKey();
 
