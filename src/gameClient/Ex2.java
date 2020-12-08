@@ -160,6 +160,7 @@ public class Ex2 implements Runnable {
         destination.put(key,ag_id);
 //        addressed.put(ag_id,key);
         List<node_data> ll=ga.shortestPath(src,key);
+        System.out.println(destination);
 
 
         if(ll==null){
