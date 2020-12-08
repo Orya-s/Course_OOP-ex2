@@ -9,6 +9,9 @@ import java.util.*;
 
 public class Ex2 implements Runnable {
 
+    private static HashMap<Integer,Integer> addressed = new HashMap<>();  //<agent_id,destNodeKey>
+    private static HashMap<Integer,Integer> destination = new HashMap<>();  //<destNodeKey,agent_id>
+
     private static MyFrame _win;
     private static Arena _ar;
     public static void main(String[] a) {
@@ -21,8 +24,8 @@ public class Ex2 implements Runnable {
     public void run() {
         int scenario_num = 23;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-        //	int id = 999;
-        //	game.login(id);
+        	int id = 208925982;
+        	game.login(id);
         String g = game.getGraph();
         String pks = game.getPokemons();
         directed_weighted_graph gg = game.getJava_Graph_Not_to_be_used();
@@ -33,10 +36,31 @@ public class Ex2 implements Runnable {
         int ind=0;
         long dt=100;
 
+
+//make sure there's only one agent going after the same pokemon
+        String lg = game.move();
+        List<CL_Agent> log = Arena.getAgents(lg, gg);
+        Iterator<CL_Agent> it= log.iterator();
+        while (it.hasNext()){
+            CL_Agent temp= it.next();
+            addressed.put(temp.getID(),-1);
+        }
+
+
+        Collection<node_data> n= gg.getV();
+        Iterator<node_data> it2= n.iterator();
+        while (it2.hasNext()){
+            node_data temp= it2.next();
+            destination.put(temp.getKey(),-1);
+        }
+
+
         while(game.isRunning()) {
             moveAgents(game, gg);
             try {
-                if(ind%3==0) {_win.repaint();}
+                if(ind%1==0) {_win.repaint();
+                    _win.setTitle("Ex2 - "+game.toString());
+                }
                 Thread.sleep(dt);
                 ind++;
             }
@@ -73,7 +97,7 @@ public class Ex2 implements Runnable {
             int src = ag.getSrcNode();
             double v = ag.getValue();
             if(dest==-1) {
-                dest = nextNode(gg, src);
+                dest = nextNode(gg, src,id);
                 game.chooseNextEdge(ag.getID(), dest);
                 System.out.println("Agent: "+id+", val: "+v+"   turned to node: "+dest);
             }
@@ -85,7 +109,7 @@ public class Ex2 implements Runnable {
      * @param src
      * @return
      */
-    private static int nextNode(directed_weighted_graph g, int src) {
+    private static int nextNode(directed_weighted_graph g, int src, int ag_id) {
         int ans = -1;
 
         //FIRST MOVE
@@ -95,36 +119,56 @@ public class Ex2 implements Runnable {
             CL_Pokemon temp= itr1.next();
             Arena.updateEdge(temp,g);
 
-            if(temp.get_edge().getSrc() == src)
+            if(temp.get_edge().getSrc() == src) {
+                destination.put(src,-1);
                 return temp.get_edge().getDest();
+            }
         }
-
 
         dw_graph_algorithms ga= new DWGraph_Algo();
         ga.init(g);
         double dist= Double.MAX_VALUE;
         int key= -1;
-        int keyDest= -1;
         List<CL_Pokemon> poke = _ar.getPokemons();
         Iterator<CL_Pokemon> itr2 = poke.iterator();
-        int f=-1;
-        int counter= -1;
+
         while (itr2.hasNext()){
-            counter++;
             CL_Pokemon temp= itr2.next();
-//            if(temp.getMin_dist()==-1) {
-                Arena.updateEdge(temp, g);
+            Arena.updateEdge(temp, g);
+
+    //first draft
+//            if((!addressed.containsValue(temp.get_edge().getSrc())) ||
+//                    (addressed.containsValue(temp.get_edge().getSrc())&&addressed.get(ag_id)==temp.get_edge().getSrc()) ) {  ///change
+
+    //second draft
+//             if(destination.get(temp.get_edge().getSrc()) == -1 ||
+//                     destination.get(temp.get_edge().getSrc())== ag_id )   {
                 double distTemp = ga.shortestPathDist(src, temp.get_edge().getSrc());
                 if (distTemp < dist) {
                     dist = distTemp;
                     key = temp.get_edge().getSrc();
-                    f= counter;
                 }
-//            }
-        }
-        CL_Pokemon dest= poke.get(f);
-        dest.setMin_dist(dist);
+//                if (distTemp==dist){  //check if value of distTemp is higher
+//                    if (temp.getValue())
+//                }
+            }
+//        }
+
+//        destination.put(key,ag_id);
+//        addressed.put(ag_id,key);
         List<node_data> ll=ga.shortestPath(src,key);
+
+
+        if(ll==null){
+            Collection<edge_data> ee = g.getE(src);
+            Iterator<edge_data> itr = ee.iterator();
+            int s = ee.size();
+            int r = (int)(Math.random()*s);
+            int i=0;
+            while(i<r) {itr.next();i++;}
+            ans = itr.next().getDest();
+            return ans;
+        }
         return ll.get(1).getKey();
 
 
@@ -141,6 +185,7 @@ public class Ex2 implements Runnable {
 //        ans = itr.next().getDest();
 //        return ans;
     }
+
     private void init(game_service game) {
         String g = game.getGraph();
         String fs = game.getPokemons();
