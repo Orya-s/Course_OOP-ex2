@@ -24,8 +24,8 @@ public class Ex2 implements Runnable {
     public void run() {
         int scenario_num = 23;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-        	int id = 208925982;
-        	game.login(id);
+//        	int id = 208925982;
+//        	game.login(id);
         String g = game.getGraph();
         String pks = game.getPokemons();
         directed_weighted_graph gg = game.getJava_Graph_Not_to_be_used();
@@ -129,6 +129,7 @@ public class Ex2 implements Runnable {
         ga.init(g);
         double dist= Double.MAX_VALUE;
         int key= -1;
+
         List<CL_Pokemon> poke = _ar.getPokemons();
         Iterator<CL_Pokemon> itr2 = poke.iterator();
         double value= 0;
@@ -136,28 +137,28 @@ public class Ex2 implements Runnable {
         while (itr2.hasNext()){
             CL_Pokemon temp= itr2.next();
             Arena.updateEdge(temp, g);
-
+            int tempSrc= temp.get_edge().getSrc();
     //first draft
-            if((!addressed.containsValue(temp.get_edge().getSrc())) ||
-                    (addressed.containsValue(temp.get_edge().getSrc())&&addressed.get(ag_id)==temp.get_edge().getSrc()) ) {  ///change
+//            if((!addressed.containsValue(tempSrc)) ||
+//                    (addressed.containsValue(tempSrc)&&addressed.get(ag_id)==tempSrc) ) {  ///change
 
     //second draft
-//             if(destination.get(temp.get_edge().getSrc()) == -1 ||
-//                     destination.get(temp.get_edge().getSrc())== ag_id )   {
-                double distTemp = ga.shortestPathDist(src, temp.get_edge().getSrc());
+             if(destination.get(tempSrc) == -1 ||
+                     destination.get(tempSrc)== ag_id )   {
+                double distTemp = ga.shortestPathDist(src, tempSrc);
                 if (distTemp < dist) {
                     dist = distTemp;
-                    key = temp.get_edge().getSrc();
+                    key = tempSrc;
                     value= temp.getValue();
                 }
                 if (distTemp==dist){  //check if value of distTemp is higher
-                    if (temp.getValue()>value) key= temp.get_edge().getSrc();
+                    if (temp.getValue()>value) key= tempSrc;
                 }
             }
         }
 
-//        destination.put(key,ag_id);
-        addressed.put(ag_id,key);
+        destination.put(key,ag_id);
+//        addressed.put(ag_id,key);
         List<node_data> ll=ga.shortestPath(src,key);
 
 
