@@ -131,14 +131,15 @@ public class Ex2 implements Runnable {
         int key= -1;
         List<CL_Pokemon> poke = _ar.getPokemons();
         Iterator<CL_Pokemon> itr2 = poke.iterator();
+        double value= 0;
 
         while (itr2.hasNext()){
             CL_Pokemon temp= itr2.next();
             Arena.updateEdge(temp, g);
 
     //first draft
-//            if((!addressed.containsValue(temp.get_edge().getSrc())) ||
-//                    (addressed.containsValue(temp.get_edge().getSrc())&&addressed.get(ag_id)==temp.get_edge().getSrc()) ) {  ///change
+            if((!addressed.containsValue(temp.get_edge().getSrc())) ||
+                    (addressed.containsValue(temp.get_edge().getSrc())&&addressed.get(ag_id)==temp.get_edge().getSrc()) ) {  ///change
 
     //second draft
 //             if(destination.get(temp.get_edge().getSrc()) == -1 ||
@@ -147,15 +148,16 @@ public class Ex2 implements Runnable {
                 if (distTemp < dist) {
                     dist = distTemp;
                     key = temp.get_edge().getSrc();
+                    value= temp.getValue();
                 }
-//                if (distTemp==dist){  //check if value of distTemp is higher
-//                    if (temp.getValue())
-//                }
+                if (distTemp==dist){  //check if value of distTemp is higher
+                    if (temp.getValue()>value) key= temp.get_edge().getSrc();
+                }
             }
-//        }
+        }
 
 //        destination.put(key,ag_id);
-//        addressed.put(ag_id,key);
+        addressed.put(ag_id,key);
         List<node_data> ll=ga.shortestPath(src,key);
 
 
