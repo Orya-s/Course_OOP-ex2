@@ -40,8 +40,6 @@ public class DW_GraphJsonDeserializer implements JsonDeserializer<directed_weigh
             double w= temp.getAsJsonObject().get("w").getAsDouble();
             int dest=temp.getAsJsonObject().get("dest").getAsInt();
             graph.connect(src,dest,w);
-//            System.out.println(graph.getEdge(src,dest));
-//            edge_data e= new edgeData(src,dest,w);
         }
 
         return graph;

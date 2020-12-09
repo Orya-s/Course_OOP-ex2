@@ -24,10 +24,10 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 1;
+        int scenario_num = 0;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-//        	int id = 208925982;
-//        	game.login(id);
+        	int id = 208925982;
+        	game.login(id);
         String g = game.getGraph();
         String pks = game.getPokemons();
 //        directed_weighted_graph gggg = game.getJava_Graph_Not_to_be_used();
@@ -72,7 +72,7 @@ public class Ex2 implements Runnable {
         while(game.isRunning()) {
             moveAgents(game, gg);
             try {
-                if(ind%5==0) {_win.repaint();
+                if(ind%1==0) {_win.repaint();
                     _win.setTitle("Ex2 - "+game.toString());
                 }
                 Thread.sleep(dt);
