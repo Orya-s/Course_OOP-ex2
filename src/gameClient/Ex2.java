@@ -24,8 +24,8 @@ public class Ex2 implements Runnable {
     public void run() {
         int scenario_num = 23;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-//        	int id = 208925982;
-//        	game.login(id);
+        	int id = 208925982;
+        	game.login(id);
         String g = game.getGraph();
         String pks = game.getPokemons();
         directed_weighted_graph gg = game.getJava_Graph_Not_to_be_used();
@@ -120,7 +120,7 @@ public class Ex2 implements Runnable {
             Arena.updateEdge(temp,g);
 
             if(temp.get_edge().getSrc() == src) {
-                destination.put(src,-1);
+                destination.put(temp.get_edge().getSrc(),-1);
                 return temp.get_edge().getDest();
             }
         }
@@ -129,6 +129,7 @@ public class Ex2 implements Runnable {
         ga.init(g);
         double dist= Double.MAX_VALUE;
         int key= -1;
+        int dest= -1;
 
         List<CL_Pokemon> poke = _ar.getPokemons();
         Iterator<CL_Pokemon> itr2 = poke.iterator();
@@ -138,11 +139,8 @@ public class Ex2 implements Runnable {
             CL_Pokemon temp= itr2.next();
             Arena.updateEdge(temp, g);
             int tempSrc= temp.get_edge().getSrc();
-    //first draft
-//            if((!addressed.containsValue(tempSrc)) ||
-//                    (addressed.containsValue(tempSrc)&&addressed.get(ag_id)==tempSrc) ) {  ///change
 
-    //second draft
+
              if(destination.get(tempSrc) == -1 ||
                      destination.get(tempSrc)== ag_id )   {
                 double distTemp = ga.shortestPathDist(src, tempSrc);
@@ -150,6 +148,7 @@ public class Ex2 implements Runnable {
                     dist = distTemp;
                     key = tempSrc;
                     value= temp.getValue();
+                    dest= temp.get_edge().getDest();
                 }
                 if (distTemp==dist){  //check if value of distTemp is higher
                     if (temp.getValue()>value) key= tempSrc;
@@ -157,11 +156,31 @@ public class Ex2 implements Runnable {
             }
         }
 
-        destination.put(key,ag_id);
-//        addressed.put(ag_id,key);
-        List<node_data> ll=ga.shortestPath(src,key);
-        System.out.println(destination);
+        //change dest
+        Iterator<node_data> it = g.getV().iterator();
+        while (it.hasNext()) {
+            node_data temp = it.next();
+            if ((destination.get(temp.getKey())) == ag_id) {
+                destination.put(key, -1);
+            }
+        }
 
+        //check if any close pokemon's
+        List<CL_Pokemon> poke1 = _ar.getPokemons();
+        Iterator<CL_Pokemon> it1 = poke1.iterator();
+        while (it1.hasNext()) {
+            CL_Pokemon temp = it1.next();
+            if ((destination.get(temp.get_edge().getSrc()) == -1 || temp.get_edge().getSrc() == dest)) {
+                double tempD = ga.shortestPathDist(temp.get_edge().getSrc(), dest);
+                if (tempD < 4)
+                    destination.put(temp.get_edge().getSrc(), ag_id);
+
+            }
+        }
+
+        destination.put(key,ag_id);
+        List<node_data> ll=ga.shortestPath(src,key);
+//        System.out.println(destination);
 
         if(ll==null){
             Collection<edge_data> ee = g.getE(src);
@@ -173,21 +192,8 @@ public class Ex2 implements Runnable {
             ans = itr.next().getDest();
             return ans;
         }
+
         return ll.get(1).getKey();
-
-
-
-
-        //DEFAULT
-//         ans = -1;
-//        Collection<edge_data> ee = g.getE(src);
-//        Iterator<edge_data> itr = ee.iterator();
-//        int s = ee.size();
-//        int r = (int)(Math.random()*s);
-//        int i=0;
-//        while(i<r) {itr.next();i++;}
-//        ans = itr.next().getDest();
-//        return ans;
     }
 
     private void init(game_service game) {
