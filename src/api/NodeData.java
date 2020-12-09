@@ -18,6 +18,7 @@ public class NodeData implements node_data, java.io.Serializable {
         key= counter();
         toEdge= new HashMap<>();
         fromEdge= new HashMap<>();
+        location= new GeoLocation(0,0,0);
     }
 
     private int counter(){
@@ -28,6 +29,7 @@ public class NodeData implements node_data, java.io.Serializable {
         this.key= key;
         toEdge= new HashMap<>();
         fromEdge= new HashMap<>();
+        location= new GeoLocation();
     }
 
 

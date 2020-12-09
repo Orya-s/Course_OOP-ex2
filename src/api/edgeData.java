@@ -19,6 +19,12 @@ public class edgeData implements edge_data {
         this.key= counter();  //unique key of the edge
     }
 
+    public edgeData(edge_data e){
+        this.src= e.getSrc();
+        this.dest= e.getDest();
+        this.weight= e.getWeight();
+    }
+
     private int counter(){
         return counter++;
     }
@@ -63,4 +69,7 @@ public class edgeData implements edge_data {
     }
 
 
+    public String toString(){
+        return "Edge: src- "+src+ " dest- "+dest+" weight- "+weight;
+    }
 }

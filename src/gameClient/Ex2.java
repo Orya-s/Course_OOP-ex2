@@ -5,11 +5,13 @@ import api.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Ex2 implements Runnable {
 
-    private static HashMap<Integer,Integer> addressed = new HashMap<>();  //<agent_id,destNodeKey>
     private static HashMap<Integer,Integer> destination = new HashMap<>();  //<destNodeKey,agent_id>
 
     private static MyFrame _win;
@@ -22,15 +24,28 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 23;
+        int scenario_num = 1;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-        	int id = 208925982;
-        	game.login(id);
+//        	int id = 208925982;
+//        	game.login(id);
         String g = game.getGraph();
         String pks = game.getPokemons();
-        directed_weighted_graph gg = game.getJava_Graph_Not_to_be_used();
-        init(game);
+//        directed_weighted_graph gggg = game.getJava_Graph_Not_to_be_used();
 
+        try {
+            File f = new File("Graph.json");
+            FileWriter fileWriter = new FileWriter(f);
+            fileWriter.write(g);
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        dw_graph_algorithms ga = new DWGraph_Algo();
+        ga.load("Graph.json");
+        directed_weighted_graph gg = ga.getGraph();
+
+        init(game);
         game.startGame();
         _win.setTitle("Ex2 - OOP: (NONE trivial Solution) "+game.toString());
         int ind=0;
@@ -43,7 +58,6 @@ public class Ex2 implements Runnable {
         Iterator<CL_Agent> it= log.iterator();
         while (it.hasNext()){
             CL_Agent temp= it.next();
-            addressed.put(temp.getID(),-1);
         }
 
 
@@ -58,7 +72,7 @@ public class Ex2 implements Runnable {
         while(game.isRunning()) {
             moveAgents(game, gg);
             try {
-                if(ind%1==0) {_win.repaint();
+                if(ind%5==0) {_win.repaint();
                     _win.setTitle("Ex2 - "+game.toString());
                 }
                 Thread.sleep(dt);
@@ -115,16 +129,17 @@ public class Ex2 implements Runnable {
         //FIRST MOVE
         Collection<CL_Pokemon> pokeC = _ar.getPokemons();
         Iterator<CL_Pokemon> itr1 = pokeC.iterator();
-        while(itr1.hasNext()){
-            CL_Pokemon temp= itr1.next();
-            Arena.updateEdge(temp,g);
+        while(itr1.hasNext()) {
+            CL_Pokemon temp = itr1.next();
 
-            if(temp.get_edge().getSrc() == src) {
-                destination.put(temp.get_edge().getSrc(),-1);
+            Arena.updateEdge(temp, g);
+            System.out.println(temp.get_edge());
+            if (temp.get_edge().getSrc() == src) {
+                destination.put(temp.get_edge().getSrc(), -1);
                 return temp.get_edge().getDest();
             }
-        }
 
+        }
         dw_graph_algorithms ga= new DWGraph_Algo();
         ga.init(g);
         double dist= Double.MAX_VALUE;
@@ -135,27 +150,28 @@ public class Ex2 implements Runnable {
         Iterator<CL_Pokemon> itr2 = poke.iterator();
         double value= 0;
 
-        while (itr2.hasNext()){
-            CL_Pokemon temp= itr2.next();
+        while (itr2.hasNext()) {
+            CL_Pokemon temp = itr2.next();
             Arena.updateEdge(temp, g);
-            int tempSrc= temp.get_edge().getSrc();
+
+                int tempSrc = temp.get_edge().getSrc();
 
 
-             if(destination.get(tempSrc) == -1 ||
-                     destination.get(tempSrc)== ag_id )   {
-                double distTemp = ga.shortestPathDist(src, tempSrc);
-                if (distTemp < dist) {
-                    dist = distTemp;
-                    key = tempSrc;
-                    value= temp.getValue();
-                    dest= temp.get_edge().getDest();
+                if (destination.get(tempSrc) == -1 ||
+                        destination.get(tempSrc) == ag_id) {
+                    double distTemp = ga.shortestPathDist(src, tempSrc);
+                    if (distTemp < dist) {
+                        dist = distTemp;
+                        key = tempSrc;
+                        value = temp.getValue();
+                        dest = temp.get_edge().getDest();
+                    }
+                    if (distTemp == dist) {  //check if value of distTemp is higher
+                        if (temp.getValue() > value) key = tempSrc;
+                    }
                 }
-                if (distTemp==dist){  //check if value of distTemp is higher
-                    if (temp.getValue()>value) key= tempSrc;
-                }
-            }
+
         }
-
         //change dest
         Iterator<node_data> it = g.getV().iterator();
         while (it.hasNext()) {
@@ -170,7 +186,7 @@ public class Ex2 implements Runnable {
         Iterator<CL_Pokemon> it1 = poke1.iterator();
         while (it1.hasNext()) {
             CL_Pokemon temp = it1.next();
-            if ((destination.get(temp.get_edge().getSrc()) == -1 || temp.get_edge().getSrc() == dest)) {
+            if (temp.get_edge() !=null &&(destination.get(temp.get_edge().getSrc()) == -1 || temp.get_edge().getSrc() == dest)) {
                 double tempD = ga.shortestPathDist(temp.get_edge().getSrc(), dest);
                 if (tempD < 4)
                     destination.put(temp.get_edge().getSrc(), ag_id);

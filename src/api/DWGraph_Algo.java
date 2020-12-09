@@ -150,7 +150,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         }
         for (node_data n: dw_graph.getV()){
             JsonObject node= new JsonObject();
-            node.addProperty("pos", 0);
+            String pos= n.getLocation().x()+","+n.getLocation().y()+","+n.getLocation().z();
+            node.addProperty("pos", pos);
             node.addProperty("id", n.getKey());
             nodes.add(node);
         }

@@ -82,7 +82,7 @@ class DWGraph_AlgoTest {
 
         String str = "WDGraph.json";
         ga.save(str);
-        ga.load("WDGraph");
+        ga.load("WDGraph.json");
         assertEquals(g,ga.getGraph());
     }
 
@@ -94,7 +94,7 @@ class DWGraph_AlgoTest {
 
         String str = "WDGraph.json";
         ga.save(str);
-        ga.load("WDGraph");
+        ga.load("WDGraph.json");
         assertEquals(g,ga.getGraph());
     }
 

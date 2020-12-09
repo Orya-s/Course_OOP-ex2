@@ -16,6 +16,12 @@ public class GeoLocation implements geo_location{
         this.z= 0;
     }
 
+    public GeoLocation(geo_location geo){
+        this.x= geo.x();
+        this.y= geo.y();
+        this.z= geo.z();
+    }
+
     @Override
     public double x() {
         return this.x;
@@ -33,8 +39,7 @@ public class GeoLocation implements geo_location{
 
     @Override
     public double distance(geo_location g) {
-        return 0;
-    }
+        return Math.sqrt(Math.pow((this.x-g.x()),2)+Math.pow((this.y-g.y()),2)+Math.pow((this.z-g.z()),2));    }
 
     public String toString(){
         return "Geo Location: "+x+","+y+","+z+".";
