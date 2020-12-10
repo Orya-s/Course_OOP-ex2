@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ * This class represents the set of operations applicable on a directional edge(src,dest)
+ * in a directional weighted graph.
+ */
 public class edgeData implements edge_data {
 
     private int src, dest, key, tag;
@@ -11,6 +15,9 @@ public class edgeData implements edge_data {
     private String id, info;
     private static int counter;
 
+    /**
+     * default constructor
+     */
     public edgeData(int src, int dest, double weight){
         this.src= src;
         this.dest= dest;
@@ -19,14 +26,17 @@ public class edgeData implements edge_data {
         this.key= counter();  //unique key of the edge
     }
 
+    private int counter(){
+        return counter++;
+    }
+
+    /**
+     * copy constructor
+     */
     public edgeData(edge_data e){
         this.src= e.getSrc();
         this.dest= e.getDest();
         this.weight= e.getWeight();
-    }
-
-    private int counter(){
-        return counter++;
     }
 
     public String getId(){

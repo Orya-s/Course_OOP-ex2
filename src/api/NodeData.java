@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- * This class implements the node_data interface, represents a NodeData(vertex) in a directional weighted graph:
+ * This class implements the node_data interface, represents a NodeData(vertex) in a directed weighted graph:
  * Each node has a unique ID, Tag, String of info, and two HashMap<> of neighbors (edges "coming" to the node,
  * and edges "leaving" node).
  */

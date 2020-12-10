@@ -5,21 +5,32 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.*;
-
 import com.google.gson.*;
-
-
+/**
+ * This class represents a directed weighted Graph Theory algorithms including:
+ * 0. clone(); (copy)
+ * 1. init(graph);
+ * 2. isConnected();
+ * 3. double shortestPathDist(int src, int dest);
+ * 4. List<node_data> shortestPath(int src, int dest);
+ * 5. Save(file);
+ * 6. Load(file);
+ */
 public class DWGraph_Algo implements dw_graph_algorithms {
 
     private directed_weighted_graph dw_graph;
 
-
-
+    /**
+     * default constructor
+     */
     public DWGraph_Algo() {
         dw_graph = new DWGraph_DS();
     }
 
-
+    /**
+     * Init the graph on which this set of algorithms operates on.
+     * @param g
+     */
     @Override
     public void init(directed_weighted_graph g) {
         this.dw_graph = g;
@@ -30,12 +41,26 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return dw_graph;
     }
 
+    /**
+     * Computes a deep copy of this graph, using a copy constructor in the DWGraph_DS class.
+     */
     @Override
     public directed_weighted_graph copy() {
         DWGraph_DS ans = new DWGraph_DS((DWGraph_DS) dw_graph);
         return ans;
     }
 
+    /**
+     * Returns true iff the graph is connected.
+     * This function uses the BFS algorithm to "iterate" over the nodes in the graph, to check if there's a
+     * valid path between all the nodes.
+     * This function is activating the BFS algorithm using the first node in the graph, but the function
+     * can work using any other node in the graph as well.
+     * The algorithm is first running on the list of nodes that have an edge from this first node to them,
+     * and then on the list of the nodes that send an edge from them to this node. if the counter of the
+     * algorithm returns the number of nodes in the graph- the graph is connected.
+     * @return true iff the graph is connected.
+     */
     @Override
     public boolean isConnected() {
         if (dw_graph.getV().size() <= 1) return true;
@@ -94,13 +119,14 @@ public class DWGraph_Algo implements dw_graph_algorithms {
                 }
             }
 
-            if (counter1 == dw_graph.nodeSize())
+            if (counter1 == dw_graph.nodeSize()) {
                 return true;
+            }
         }
         return false;
     }
 
-    public void resetTag(directed_weighted_graph g, int tag) {
+    private void resetTag(directed_weighted_graph g, int tag) {
         Collection<node_data> points = g.getV();
         Iterator<node_data> st = points.iterator();
 
@@ -110,6 +136,18 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         }
     }
 
+    /**
+     * Returns the length of the shortest path between two nodes- source and destination.
+     * This function is using the Dijkstra algorithm. The Dijkstra function is getting the source node and
+     * the destination node and is setting the weight of every node in the path between them as the distance
+     * from the source node. Until the algorithm finds all the ways to get to the destination node
+     * and sets the weight of destination node with the distance of the shortest path.
+     * Then this function returns the weight of the destination node.
+     * If there isn't a valid path between the two nodes the function returns -1.
+     * @param src - start node.
+     * @param dest - end node.
+     * @return the distance between the two nodes.
+     */
     @Override
     public double shortestPathDist(int src, int dest) {
         if (src == dest) return 0;
@@ -122,6 +160,19 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return -1;
     }
 
+    /**
+     * Returns the shortest path between src to dest as an ordered List of nodes.
+     * This function is using the Dijkstra algorithm to set the weight of the destination node (and all
+     * the other nodes in the path) as the shortest distance from the source node. When a node
+     * gets the right weight the function is setting the info of the node as the key of the previous
+     * node in the path. Then with the getPath function the list is created by adding the destination
+     * node and then adding the node with the key from the destination node's info, this process
+     * continues until the function gets to the source node.
+     * In case there isn't a valid path between the two nodes the function returns null.
+     * @param src - start node
+     * @param dest - end (target) node
+     * @return List<node_data> of the shortest path.
+     */
     @Override
     public List<node_data> shortestPath(int src, int dest) {
         if(src == dest) {
@@ -134,6 +185,11 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return getPath(dw_graph.getNode(src), dw_graph.getNode(dest));
     }
 
+    /**
+     * Saves this weighted directed graph to the given file name, using json serialization.
+     * @param file - the file name.
+     * @return true - iff the file was successfully saved.
+     */
     @Override
     public boolean save(String file) {
 
@@ -173,6 +229,12 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return true;
     }
 
+    /**
+     * This method loads a graph to this graph algorithm. using the DW_GraphJsonDeserializer class that is
+     * implementing JsonDeserializer<directed_weighted_graph>.
+     * @param file - file name
+     * @return true - iff the graph was successfully loaded.
+     */
     @Override
     public boolean load(String file) {
         try {
