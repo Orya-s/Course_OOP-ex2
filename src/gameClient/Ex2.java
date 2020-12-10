@@ -24,7 +24,7 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 0;
+        int scenario_num = 23;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
         	int id = 208925982;
         	game.login(id);
@@ -72,7 +72,7 @@ public class Ex2 implements Runnable {
         while(game.isRunning()) {
             moveAgents(game, gg);
             try {
-                if(ind%1==0) {_win.repaint();
+                if(ind%3==0) {_win.repaint();
                     _win.setTitle("Ex2 - "+game.toString());
                 }
                 Thread.sleep(dt);
@@ -133,7 +133,6 @@ public class Ex2 implements Runnable {
             CL_Pokemon temp = itr1.next();
 
             Arena.updateEdge(temp, g);
-            System.out.println(temp.get_edge());
             if (temp.get_edge().getSrc() == src) {
                 destination.put(temp.get_edge().getSrc(), -1);
                 return temp.get_edge().getDest();

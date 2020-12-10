@@ -210,13 +210,6 @@ public class DWGraph_Algo implements dw_graph_algorithms {
                     return curr.getWeight();
                 }
 
-
-
-                //                for (edge_data e : dw_graph.getE(curr.getKey())) {
-//                    node_data neighbor= dw_graph.getNode(e.getDest());
-
-
-
                 for (edge_data e : dw_graph.getE(curr.getKey())) {
                     node_data neighbor= dw_graph.getNode(e.getDest());
 
