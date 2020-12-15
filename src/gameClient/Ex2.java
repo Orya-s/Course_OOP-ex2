@@ -138,14 +138,16 @@ public class Ex2 implements Runnable {
             if (temp.get_edge().getSrc() == src) {
                 destination.put(temp.get_edge().getSrc(), -1);
                 boolean changeDT= true;
-                if (temp.get_edge().getWeight()<0.3) {    ///////////// added later
-                    dt = dt - 20;
-                    changeDT= false;
-                }
-                else if (!changeDT) {
-                    dt = dt + 20;
-                    changeDT= true;
-                }
+//                if (temp.get_edge().getWeight()<0.3) {    ///////////// added later
+//                    dt = dt - 20;
+//                    changeDT= false;
+//                }
+//                else  {
+//                    if (!changeDT) {
+//                        dt = dt + 20;
+//                        changeDT = true;
+//                    }
+//                }
                 return temp.get_edge().getDest();
             }
         }

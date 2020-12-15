@@ -69,8 +69,8 @@ public class MyFrame extends JFrame{
 	}
 
 	private void updateFrame() {
-		Range rx = new Range(20,this.getWidth()-20);
-		Range ry = new Range(this.getHeight()-10,150);
+		Range rx = new Range(50,this.getWidth()-50);
+		Range ry = new Range(this.getHeight()-80,150);
 		Range2D frame = new Range2D(rx,ry);
 		if(_ar != null) {
 			directed_weighted_graph g = _ar.getGraph();
