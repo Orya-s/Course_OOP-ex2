@@ -5,20 +5,35 @@ import api.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class Ex2 implements Runnable {
 
     private static HashMap<Integer,Integer> destination = new HashMap<>();  //<destNodeKey,agent_id>
 
     private static MyFrame _win;
+    private static MyLoginFrame lf;
     private static Arena _ar;
     private static long dt;
     private long startTime = System.currentTimeMillis();
+    private int scenario_num=-1;
+    private int id= -1;
+
+
     public static void main(String[] a) {
+        int x=0;
+        lf = new MyLoginFrame("login");
+
+        lf.loginPage();
+        while(x==0){
+            x= lf.invisible();
+        }
+
         Thread client = new Thread(new Ex2());
         client.start();
     }
@@ -26,9 +41,9 @@ public class Ex2 implements Runnable {
 
     @Override
     public void run() {
-        int scenario_num = 23;
+        scenario_num = 23;
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-        	int id = 208925982;
+            id = 208925982;
         	game.login(id);
         String g = game.getGraph();
 

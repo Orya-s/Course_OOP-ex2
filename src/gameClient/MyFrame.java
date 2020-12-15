@@ -21,7 +21,6 @@ public class MyFrame extends JFrame{
 	private int _ind;
 	private Arena _ar;
 	private Range2Range _w2f;
-	private MyLoginPanel p;
 	private boolean d = false;
 
 	MyFrame(String a) {
@@ -29,43 +28,18 @@ public class MyFrame extends JFrame{
 		int _ind = 0;
 		this.setSize(1000, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		this.setVisible(true);
-	}
-
-	MyFrame(){
-
-		this.setSize(500, 350);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		p =new MyLoginPanel();
-
-//		p.setSize(100,100);
-		this.add(p);
-//		this.setVisible(true);
-	}
-
-	public void loginPage(){
-		this.add(new MyLoginPanel());
 		this.setVisible(true);
-
 	}
-	///////////////////
-//	public void paintComponents(Graphics g) {
-//			MyPanel myPanel = new MyPanel(this._w2f);
-//			this.add(myPanel);
-//			updateFrame();
-////			this.revalidate();
-//	}
+
 	public void paint(Graphics g) {
 		MyPanel myPanel = new MyPanel(this._w2f);
 		this.add(myPanel);
 		updateFrame();
-//			this.revalidate();
 	}
 
 	public void update(Arena ar) {
 		this._ar = ar;
 		updateFrame();
-//		this.revalidate();
 	}
 
 	private void updateFrame() {
@@ -95,7 +69,6 @@ public class MyFrame extends JFrame{
 			if(_w2f != null && _ar!= null) {
 				Graphics2D g1 = (Graphics2D) g;
 				super.paintComponent(g);
-//				g.setColor(Color.blue);
 				updateFrame();
 				drawGraph(g1);
 				drawPokemons(g1);
@@ -199,35 +172,7 @@ public class MyFrame extends JFrame{
 		}
 	}
 
-	public class MyLoginPanel extends JPanel {
-		int level;
-		int ID;
-
-		public MyLoginPanel() {
-			super();
-			this.setSize(300, 300);
-			this.setBackground(Color.blue);
-			this.setVisible(true);
-		}
-
-//    @Override
-//    public void paintComponents(Graphics g) {
-//        super.paintComponents(g);
-//        this.setVisible(true);
-//    }
-
-		public int getID() {
-			return ID;
-		}
-		public int getlevel() {
-			return level;
-		}
-		public int setID(int ID) {
-			return this.ID= ID;
-		}
-		public int setlevel(int level) {
-			return this.level= level;
-		}
-
-	}
 }
+
+
+
