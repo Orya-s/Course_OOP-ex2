@@ -16,6 +16,8 @@ public class Ex2 implements Runnable {
 
     private static MyFrame _win;
     private static Arena _ar;
+    private static long dt;
+    private long startTime = System.currentTimeMillis();
     public static void main(String[] a) {
         Thread client = new Thread(new Ex2());
         client.start();
@@ -48,7 +50,7 @@ public class Ex2 implements Runnable {
         game.startGame();
         _win.setTitle("Ex2 - OOP: "+game.toString());
         int ind=0;
-        long dt=100;
+        dt=120;
 
     //make sure there's only one agent going after the same pokemon
         Collection<node_data> n= gg.getV();
@@ -59,9 +61,21 @@ public class Ex2 implements Runnable {
         }
 
         while(game.isRunning()) {
+
+            if (System.currentTimeMillis() - startTime > 10000)
+                dt = 110;
+            if (System.currentTimeMillis() - startTime > 20000)
+                dt = 100;
+            if (System.currentTimeMillis() - startTime > 30000)
+                dt = 90;
+            if (System.currentTimeMillis() - startTime > 40000)
+                dt = 80;
+            if (System.currentTimeMillis() - startTime > 50000)
+                dt = 75;
+
             moveAgents(game, gg);
             try {
-                if(ind%7==0) {_win.repaint();
+                if(ind%1==0) {_win.repaint();
                     _win.setTitle("Ex2 - "+game.toString());
                 }
                 Thread.sleep(dt);
@@ -123,6 +137,15 @@ public class Ex2 implements Runnable {
             Arena.updateEdge(temp, g);
             if (temp.get_edge().getSrc() == src) {
                 destination.put(temp.get_edge().getSrc(), -1);
+                boolean changeDT= true;
+                if (temp.get_edge().getWeight()<0.3) {    ///////////// added later
+                    dt = dt - 20;
+                    changeDT= false;
+                }
+                else if (!changeDT) {
+                    dt = dt + 20;
+                    changeDT= true;
+                }
                 return temp.get_edge().getDest();
             }
         }
