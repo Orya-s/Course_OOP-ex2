@@ -238,6 +238,7 @@ public class Ex2 implements Runnable {
         _ar.setGraph(gg);
         _ar.setPokemons(Arena.json2Pokemons(fs));
         _win = new MyFrame("test Ex2");
+//        _win.pack();
         _win.setSize(1000, 700);
         _win.update(_ar);
 //        _win.setTitle("Pokemon");

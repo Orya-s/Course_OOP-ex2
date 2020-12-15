@@ -21,7 +21,12 @@ public class MyFrame extends JFrame{
 	private int _ind;
 	private Arena _ar;
 	private Range2Range _w2f;
-	private boolean d = false;
+
+	private ImageIcon image1;
+	private JLabel label1;
+	private ImageIcon image2;
+	private JLabel label2;
+
 
 	MyFrame(String a) {
 		super(a);
@@ -29,6 +34,22 @@ public class MyFrame extends JFrame{
 		this.setSize(1000, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+
+//		setContentPane(new JLabel(new ImageIcon("docs/pokemon_logo.png")));
+//		setLayout(new FlowLayout());
+//		JLabel L1= new JLabel();
+//		add(L1);
+//		setSize(100,100);
+
+
+//		image1= new ImageIcon("docs/pokemon_logo.png");
+//		label1= new JLabel(image1);
+//		label1.setBounds(10,20,80,25);
+//		add(label1);
+
+
+
+
 	}
 
 	public void paint(Graphics g) {
@@ -54,14 +75,21 @@ public class MyFrame extends JFrame{
 		}
 	}
 
+
+
 	private class MyPanel extends JPanel {
 		private Range2Range _w2f;
 
 		public MyPanel(Range2Range _w2f) {
-			this.setBackground(Color.pink);
+			this.setBackground(Color.orange);
 			if(_w2f != null)
 				this._w2f = _w2f;
 			this.revalidate();
+
+			image1= new ImageIcon("docs/pokemon_logo.png");
+			label1= new JLabel(image1);
+			label1.setBounds(10,20,200,250);
+			add(label1);
 		}
 
 		/**
@@ -74,11 +102,36 @@ public class MyFrame extends JFrame{
 				Graphics2D g1 = (Graphics2D) g;
 				super.paintComponent(g);
 				updateFrame();
+				drawTitle(g1);
 				drawGraph(g1);
 				drawPokemons(g1);
-				drawAgants(g1);
+				drawAgents(g1);
 				drawInfo(g1);
+
 			}
+		}
+
+		private void drawTitle(Graphics g){
+
+			//adding background picture
+			image1= new ImageIcon("./docs/pokemon-wallpaper.jpg");
+			double widthScaleFactor = getWidth() / (double)image1.getIconWidth();
+			double heightScaleFactor = getHeight() / (double)image1.getIconHeight();
+			double scaleFactor = (widthScaleFactor > heightScaleFactor)? heightScaleFactor : widthScaleFactor;
+			int width = (int)(image1.getIconWidth() * scaleFactor);
+			int height = (int)(image1.getIconHeight() * scaleFactor);
+			g.drawImage(image1.getImage(), 0, 0, width, height, this);
+
+			//adding title picture
+			image2= new ImageIcon("./docs/pokemon_logo.png");
+			g.drawImage(image2.getImage(),340,20,300,150,this);
+
+			
+//			label1= new JLabel(image1);
+//			label1.setBounds(10,20,80,25);
+//			add(label1);
+//			g.drawImage();
+
 		}
 
 		private void drawInfo(Graphics g) {
@@ -97,7 +150,7 @@ public class MyFrame extends JFrame{
 				Iterator<node_data> iter = gg.getV().iterator();
 				while (iter.hasNext()) {
 					node_data n = iter.next();
-					g.setColor(Color.blue);
+					g.setColor(Color.black);
 					drawNode(n, 5, g);
 					Iterator<edge_data> itr = gg.getE(n.getKey()).iterator();
 					while (itr.hasNext()) {
@@ -133,7 +186,7 @@ public class MyFrame extends JFrame{
 			this.revalidate();
 
 		}
-		private void drawAgants(Graphics g) {
+		private void drawAgents(Graphics g) {
 			if(_w2f != null && _ar!= null) {
 				List<CL_Agent> rs = _ar.getAgents();
 				//	Iterator<OOP_Point3D> itr = rs.iterator();

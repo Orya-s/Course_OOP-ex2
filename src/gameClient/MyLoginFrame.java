@@ -114,8 +114,20 @@ public class MyLoginFrame extends JFrame{
             String id= jt.getText();
             String level1= jt2.getText();
 
-            ID= Integer.parseInt(id);
-            level= Integer.parseInt(level1);
+            if (jt.getText().equals("")){
+                ID= 207018524;
+            }
+            else{
+                ID= Integer.parseInt(id);
+            }
+
+            if (jt2.getText().equals("")){
+                level= 11;
+            }
+            else{
+                level= Integer.parseInt(level1);
+            }
+
 
             this.setVisible(false);
             Ex2.client.start();
