@@ -79,9 +79,9 @@ public class Ex2 implements Runnable {
             if (System.currentTimeMillis() - startTime > 30000)
                 dt = 90;
             if (System.currentTimeMillis() - startTime > 40000)
-                dt = 80;
+                dt = 85;
             if (System.currentTimeMillis() - startTime > 50000)
-                dt = 75;
+                dt = 80;
 
             moveAgents(game, gg);
             try {
@@ -240,6 +240,7 @@ public class Ex2 implements Runnable {
         _win = new MyFrame("test Ex2");
         _win.setSize(1000, 700);
         _win.update(_ar);
+//        _win.setTitle("Pokemon");
 
 
         _win.show();

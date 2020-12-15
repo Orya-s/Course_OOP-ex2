@@ -64,6 +64,10 @@ public class MyFrame extends JFrame{
 			this.revalidate();
 		}
 
+		/**
+		 * drawing all the elements in the game (graph, agents, Pokemons)
+		 * @param g
+		 */
 		public void paint(Graphics g)
 		{
 			if(_w2f != null && _ar!= null) {
@@ -74,7 +78,6 @@ public class MyFrame extends JFrame{
 				drawPokemons(g1);
 				drawAgants(g1);
 				drawInfo(g1);
-
 			}
 		}
 
