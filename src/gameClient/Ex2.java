@@ -21,29 +21,24 @@ public class Ex2 implements Runnable {
     private static Arena _ar;
     private static long dt;
     private long startTime = System.currentTimeMillis();
-    private int scenario_num=-1;
-    private int id= -1;
+    private int scenario_num;
+    private int id;
+    public static Thread client = new Thread(new Ex2());
+
 
 
     public static void main(String[] a) {
         int x=0;
         lf = new MyLoginFrame("login");
-
         lf.loginPage();
-        while(x==0){
-            x= lf.invisible();
-        }
-
-        Thread client = new Thread(new Ex2());
-        client.start();
     }
 
 
     @Override
     public void run() {
-        scenario_num = 23;
+        scenario_num = lf.getLevel();
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-            id = 208925982;
+            id = lf.getID();
         	game.login(id);
         String g = game.getGraph();
 

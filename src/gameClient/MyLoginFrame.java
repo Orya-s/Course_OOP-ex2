@@ -19,20 +19,16 @@ import java.util.List;
 /**
  * This class represents a GUI class to present a login window for the game.
  */
-public class MyLoginFrame extends JFrame implements ActionListener{
-
+public class MyLoginFrame extends JFrame{
 
     private Arena _ar;
     private MyLoginPanel p;
-    private int level;
-    private int ID;
 
 
     MyLoginFrame(String a) {
         super(a);
         this.setSize(350, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setDefaultCloseOperation(JFrame.);
         this.setVisible(true);
     }
 
@@ -41,9 +37,6 @@ public class MyLoginFrame extends JFrame implements ActionListener{
             this.setVisible(false);
             return 1;
         }
-
-//        System.out.println("Please enter you ID and the wanted game level");
-
         return 0;
     }
 
@@ -65,14 +58,8 @@ public class MyLoginFrame extends JFrame implements ActionListener{
         return p.getID();
     }
 
-    public int getlevel() {
+    public int getLevel() {
         return p.getLevel();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        if (!p.isVisible()) this.setVisible(false);
     }
 
 
@@ -87,7 +74,6 @@ public class MyLoginFrame extends JFrame implements ActionListener{
         public MyLoginPanel() {
             super();
             this.setLayout(null);
-//            this.setBackground(Color.blue);
 
             JLabel idLabel= new JLabel("ID:");
             idLabel.setBounds(10,20,80,25);
@@ -106,25 +92,11 @@ public class MyLoginFrame extends JFrame implements ActionListener{
             this.add(jt2);
 
 
-//            //text box
-//            jt= new JTextField(30);
-//            jt.setBounds(150, 30, 80, 25);
-//            jt.addActionListener(this);
-//
-//            jt2= new JTextField(30);
-//            jt2.setBounds(150, 10, 80, 25);
-//            jt2.addActionListener(this);
-//
-//            this.add(jt);
-//            this.add(jt2);
-//
-
             //start game button
             jb= new JButton("Start");
             jb.setBounds(125, 90, 80, 25);
             jb.addActionListener(this);
             this.add(jb);
-
         }
 
 
@@ -136,13 +108,6 @@ public class MyLoginFrame extends JFrame implements ActionListener{
             return level;
         }
 
-//        public void setID(int ID) {
-//             this.ID = ID;
-//        }
-//
-//        public void setlevel(int level) {
-//             this.level = level;
-//        }
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -153,6 +118,7 @@ public class MyLoginFrame extends JFrame implements ActionListener{
             level= Integer.parseInt(level1);
 
             this.setVisible(false);
+            Ex2.client.start();
         }
     }
 
