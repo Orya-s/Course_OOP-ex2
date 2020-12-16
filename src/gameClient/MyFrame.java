@@ -122,8 +122,11 @@ public class MyFrame extends JFrame{
 
 		}
 		public void drawTimer(Graphics g){
-			g.drawString("Time left: "+time,40,40);
-			g.drawString("Score: "+grade,40,65);
+			g.setColor(Color.blue);
+			g.setFont(new Font(	"SERIF",1,18) );
+			g.drawString("Time left: "+time,35,45);
+			g.drawString("Score: "+grade,35,65);
+
 		}
 		private void drawInfo(Graphics g) {
 			if(_w2f != null && _ar!= null) {
@@ -163,7 +166,7 @@ public class MyFrame extends JFrame{
 					CL_Pokemon f = itr.next();
 					Point3D c = f.getLocation();
 					int r=10;
-					g.setColor(Color.pink.darker());
+					g.setColor(Color.blue);
 					if(f.getType()<0) {g.setColor(Color.cyan.darker());}
 					if(c!=null) {
 
@@ -181,7 +184,7 @@ public class MyFrame extends JFrame{
 			if(_w2f != null && _ar!= null) {
 				List<CL_Agent> rs = _ar.getAgents();
 				//	Iterator<OOP_Point3D> itr = rs.iterator();
-				g.setColor(Color.blue);
+				g.setColor(Color.red);
 				int i = 0;
 				while (rs != null && i < rs.size()) {
 					geo_location c = rs.get(i).getLocation();
