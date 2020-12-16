@@ -9,6 +9,7 @@ import gameClient.util.Range;
 import gameClient.util.Range2D;
 import gameClient.util.Range2Range;
 
+import javax.imageio.plugins.tiff.GeoTIFFTagSet;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -97,6 +98,7 @@ public class MyFrame extends JFrame{
 				drawAgents(g1);
 				drawInfo(g1);
 				drawTimer(g1);
+				grades(g1);
 			}
 		}
 
@@ -121,11 +123,21 @@ public class MyFrame extends JFrame{
 //			g.drawString(label1.getText(), 50,50);
 
 		}
+		public  void grades(Graphics g){
+			double points = 0;
+			for (CL_Agent i : _ar.getAgents()) {
+				points = i.getValue();
+				g.setColor(Color.blue);
+				g.setFont(new Font("SERIF", 1, 14));
+				g.drawString("Agent " + i.getID() + ":  " + points, 40, 65 + (20 * i.getID()));
+			}
+		}
+
 		public void drawTimer(Graphics g){
 			g.setColor(Color.blue);
 			g.setFont(new Font(	"SERIF",1,18) );
 			g.drawString("Time left: "+time,35,45);
-			g.drawString("Score: "+grade,35,65);
+//			g.drawString("Score: "+grade,35,65);
 
 		}
 		private void drawInfo(Graphics g) {
