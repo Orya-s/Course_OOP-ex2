@@ -11,6 +11,8 @@ import gameClient.util.Range2Range;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class MyFrame extends JFrame{
 	private int _ind;
 	private Arena _ar;
 	private Range2Range _w2f;
+	private float time;
 
 	private ImageIcon image1;
 	private JLabel label1;
@@ -34,22 +37,6 @@ public class MyFrame extends JFrame{
 		this.setSize(1000, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-
-//		setContentPane(new JLabel(new ImageIcon("docs/pokemon_logo.png")));
-//		setLayout(new FlowLayout());
-//		JLabel L1= new JLabel();
-//		add(L1);
-//		setSize(100,100);
-
-
-//		image1= new ImageIcon("docs/pokemon_logo.png");
-//		label1= new JLabel(image1);
-//		label1.setBounds(10,20,80,25);
-//		add(label1);
-
-
-
-
 	}
 
 	public void paint(Graphics g) {
@@ -75,9 +62,12 @@ public class MyFrame extends JFrame{
 		}
 	}
 
+	public void timeToEndGame(long l) {
+		time= (float)l/100;
+	}
 
 
-	private class MyPanel extends JPanel {
+	private class MyPanel extends JPanel implements ActionListener {
 		private Range2Range _w2f;
 
 		public MyPanel(Range2Range _w2f) {
@@ -86,10 +76,10 @@ public class MyFrame extends JFrame{
 				this._w2f = _w2f;
 			this.revalidate();
 
-			image1= new ImageIcon("docs/pokemon_logo.png");
-			label1= new JLabel(image1);
-			label1.setBounds(10,20,200,250);
-			add(label1);
+
+//			label1= new JLabel("Time left:");
+//			label1.setBounds(10,20,80,25);
+//			add(label1);
 		}
 
 		/**
@@ -107,7 +97,7 @@ public class MyFrame extends JFrame{
 				drawPokemons(g1);
 				drawAgents(g1);
 				drawInfo(g1);
-
+				drawTimer(g1);
 			}
 		}
 
@@ -126,14 +116,22 @@ public class MyFrame extends JFrame{
 			image2= new ImageIcon("./docs/pokemon_logo.png");
 			g.drawImage(image2.getImage(),340,20,300,150,this);
 
-			
+			label1= new JLabel("Time left:");
+
+			label1.setBounds(10,20,800,25);
+			add(label1);
+			g.drawString(label1.getText(), 50,50);
+
+
 //			label1= new JLabel(image1);
 //			label1.setBounds(10,20,80,25);
 //			add(label1);
 //			g.drawImage();
 
 		}
-
+		public void drawTimer(Graphics g){
+			g.drawString(""+time,30,30);
+		}
 		private void drawInfo(Graphics g) {
 			if(_w2f != null && _ar!= null) {
 				List<String> str = _ar.get_info();
@@ -226,9 +224,14 @@ public class MyFrame extends JFrame{
 			this.revalidate();
 			//	g.drawString(""+n.getKey(), fp.ix(), fp.iy()-4*r);
 		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			double timeLeft= 60000-Ex2.startTime;
+			System.out.println(timeLeft);
+			label1.setText("Time left:" + timeLeft);
+		}
 	}
 
 }
-
-
-

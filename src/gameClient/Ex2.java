@@ -20,7 +20,7 @@ public class Ex2 implements Runnable {
     private static MyLoginFrame lf;
     private static Arena _ar;
     private static long dt;
-    private long startTime = System.currentTimeMillis();
+    public static long startTime = System.currentTimeMillis();
     private int scenario_num;
     private int id;
     public static Thread client = new Thread(new Ex2());
@@ -28,7 +28,6 @@ public class Ex2 implements Runnable {
 
 
     public static void main(String[] a) {
-        int x=0;
         lf = new MyLoginFrame("login");
         lf.loginPage();
     }
@@ -38,11 +37,11 @@ public class Ex2 implements Runnable {
     public void run() {
         scenario_num = lf.getLevel();
         game_service game = Game_Server_Ex2.getServer(scenario_num); // you have [0,23] games
-            id = lf.getID();
-        	game.login(id);
+        id = lf.getID();
+        game.login(id);
         String g = game.getGraph();
 
-    //getting the graph for the game
+        //getting the graph for the game
         try {
             File f = new File("Graph.json");
             FileWriter fileWriter = new FileWriter(f);
@@ -62,7 +61,7 @@ public class Ex2 implements Runnable {
         int ind=0;
         dt=120;
 
-    //make sure there's only one agent going after the same pokemon
+        //make sure there's only one agent going after the same pokemon
         Collection<node_data> n= gg.getV();
         Iterator<node_data> it2= n.iterator();
         while (it2.hasNext()){
@@ -85,7 +84,9 @@ public class Ex2 implements Runnable {
 
             moveAgents(game, gg);
             try {
-                if(ind%1==0) {_win.repaint();
+                if(ind%1==0) {
+                    _win.repaint();
+                    _win.timeToEndGame(game.timeToEnd()/10);
                     _win.setTitle("Ex2 - "+game.toString());
                 }
                 Thread.sleep(dt);
@@ -176,19 +177,19 @@ public class Ex2 implements Runnable {
             CL_Pokemon temp = itr2.next();
             Arena.updateEdge(temp, g);
 
-                int tempSrc = temp.get_edge().getSrc();
-                if (destination.get(tempSrc) == -1 || destination.get(tempSrc) == ag_id) {
-                    double distTemp = ga.shortestPathDist(src, tempSrc);
-                    if (distTemp < dist) {
-                        dist = distTemp;
-                        key = tempSrc;
-                        value = temp.getValue();
-                        dest = temp.get_edge().getDest();
-                    }
-                    if (distTemp == dist) {  //check if value of distTemp is higher
-                        if (temp.getValue() > value) key = tempSrc;
-                    }
+            int tempSrc = temp.get_edge().getSrc();
+            if (destination.get(tempSrc) == -1 || destination.get(tempSrc) == ag_id) {
+                double distTemp = ga.shortestPathDist(src, tempSrc);
+                if (distTemp < dist) {
+                    dist = distTemp;
+                    key = tempSrc;
+                    value = temp.getValue();
+                    dest = temp.get_edge().getDest();
                 }
+                if (distTemp == dist) {  //check if value of distTemp is higher
+                    if (temp.getValue() > value) key = tempSrc;
+                }
+            }
 
         }
 
