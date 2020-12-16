@@ -128,8 +128,8 @@ public class MyFrame extends JFrame{
 
 		}
 		public void drawTimer(Graphics g){
-			g.drawString("Time left: "+time,30,30);
-			g.drawString("Score: "+grade,30,50);
+			g.drawString("Time left: "+time,40,40);
+			g.drawString("Score: "+grade,40,65);
 		}
 		private void drawInfo(Graphics g) {
 			if(_w2f != null && _ar!= null) {
@@ -226,9 +226,7 @@ public class MyFrame extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			double timeLeft= 60000-Ex2.startTime;
-//			System.out.println(timeLeft);
-//			label1.setText("Time left:" + timeLeft);
+
 		}
 	}
 
