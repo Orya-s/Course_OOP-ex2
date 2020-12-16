@@ -87,6 +87,11 @@ public class Ex2 implements Runnable {
                 if(ind%1==0) {
                     _win.repaint();
                     _win.timeToEndGame(game.timeToEnd()/10);
+                    int grade=0;
+                    for (CL_Agent ag :_ar.getAgents()) {
+                        grade+= ag.getValue();
+                    }
+                    _win.gameGrade(grade);
                     _win.setTitle("Ex2 - "+game.toString());
                 }
                 Thread.sleep(dt);

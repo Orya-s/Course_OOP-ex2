@@ -24,11 +24,11 @@ public class MyFrame extends JFrame{
 	private Arena _ar;
 	private Range2Range _w2f;
 	private float time;
+	private int grade;
 
 	private ImageIcon image1;
 	private JLabel label1;
 	private ImageIcon image2;
-	private JLabel label2;
 
 
 	MyFrame(String a) {
@@ -66,6 +66,10 @@ public class MyFrame extends JFrame{
 		time= (float)l/100;
 	}
 
+	public void gameGrade(int grade) {
+		this.grade= grade;
+	}
+
 
 	private class MyPanel extends JPanel implements ActionListener {
 		private Range2Range _w2f;
@@ -77,9 +81,7 @@ public class MyFrame extends JFrame{
 			this.revalidate();
 
 
-//			label1= new JLabel("Time left:");
-//			label1.setBounds(10,20,80,25);
-//			add(label1);
+
 		}
 
 		/**
@@ -116,21 +118,18 @@ public class MyFrame extends JFrame{
 			image2= new ImageIcon("./docs/pokemon_logo.png");
 			g.drawImage(image2.getImage(),340,20,300,150,this);
 
-			label1= new JLabel("Time left:");
-
-			label1.setBounds(10,20,800,25);
-			add(label1);
-			g.drawString(label1.getText(), 50,50);
-
-
-//			label1= new JLabel(image1);
-//			label1.setBounds(10,20,80,25);
+//			label1= new JLabel("Time left:");
+//
+//			label1.setBounds(10,20,800,25);
 //			add(label1);
-//			g.drawImage();
+//			g.drawString(label1.getText(), 50,50);
+
+
 
 		}
 		public void drawTimer(Graphics g){
-			g.drawString(""+time,105,50);
+			g.drawString("Time left: "+time,30,30);
+			g.drawString("Score: "+grade,30,50);
 		}
 		private void drawInfo(Graphics g) {
 			if(_w2f != null && _ar!= null) {
@@ -170,8 +169,8 @@ public class MyFrame extends JFrame{
 					CL_Pokemon f = itr.next();
 					Point3D c = f.getLocation();
 					int r=10;
-					g.setColor(Color.green);
-					if(f.getType()<0) {g.setColor(Color.orange);}
+					g.setColor(Color.pink);
+					if(f.getType()<0) {g.setColor(Color.cyan.darker());}
 					if(c!=null) {
 
 						geo_location fp = this._w2f.world2frame(c);
@@ -188,7 +187,7 @@ public class MyFrame extends JFrame{
 			if(_w2f != null && _ar!= null) {
 				List<CL_Agent> rs = _ar.getAgents();
 				//	Iterator<OOP_Point3D> itr = rs.iterator();
-				g.setColor(Color.red);
+				g.setColor(Color.blue);
 				int i = 0;
 				while (rs != null && i < rs.size()) {
 					geo_location c = rs.get(i).getLocation();
@@ -227,9 +226,9 @@ public class MyFrame extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			double timeLeft= 60000-Ex2.startTime;
-			System.out.println(timeLeft);
-			label1.setText("Time left:" + timeLeft);
+//			double timeLeft= 60000-Ex2.startTime;
+//			System.out.println(timeLeft);
+//			label1.setText("Time left:" + timeLeft);
 		}
 	}
 
