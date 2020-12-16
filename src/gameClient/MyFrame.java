@@ -79,9 +79,6 @@ public class MyFrame extends JFrame{
 			if(_w2f != null)
 				this._w2f = _w2f;
 			this.revalidate();
-
-
-
 		}
 
 		/**
@@ -119,12 +116,9 @@ public class MyFrame extends JFrame{
 			g.drawImage(image2.getImage(),340,20,300,150,this);
 
 //			label1= new JLabel("Time left:");
-//
 //			label1.setBounds(10,20,800,25);
 //			add(label1);
 //			g.drawString(label1.getText(), 50,50);
-
-
 
 		}
 		public void drawTimer(Graphics g){
