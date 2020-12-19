@@ -41,7 +41,7 @@ $ git clone https://github.com/Orya-s/OOP-ex2.git
 Then enter you ID and the wanted game level and press start!
 
 
-See our [reference style][Wiki] for full documentation, examples, operational details and other information.
+See our [Wiki] for full documentation, examples, operational details and other information.
 
 
 
