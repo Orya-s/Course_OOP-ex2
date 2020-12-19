@@ -4,9 +4,13 @@
 - gameClient- containing the implementation of the Pokemon game.
 
 The Pokemon game's goal is for the agents to catch as many pokemons as they can in 60 seconds. 
+
 The game contains 24 level options (0-23), each has a different amount of agents and a different amount of Pokemons to catch at any given moment.
+
 At each level the pokemons are located on the edges of a directed weighted graph, and the agents can move on the graph only in the direction of each edge.
+
 The graph is drawn each time from the data of one of the json files in the data package, which contains different graph stuctures (by providing a list of nodes and edges).
+
 The higher level the player is choosing- the more complicated the graph structure is, making it hader to catch the pokemons.
 
 # How does it work?
