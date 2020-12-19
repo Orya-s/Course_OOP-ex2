@@ -18,7 +18,7 @@ shortest path to a target node in a directed weighted graph in a fast and effici
 wasting time, which helps them achiving a high grade in the game.
 For more information on the algorithm: https://brilliant.org/wiki/dijkstras-short-path-finder/
 
-# Other Algorithms
+## Other Algorithms
 DWGraph_Algo class represents the regular Graph Theory algorithms including:
 - clone(); (copy)
 - init(graph);
@@ -28,7 +28,7 @@ DWGraph_Algo class represents the regular Graph Theory algorithms including:
 - Save(file); - using the json serialization.
 - Load(file); - using the DW_GraphJsonDeserializer class that is implementing JsonDeserializer<directed_weighted_graph>.
 
-# Graph implementation
+## Graph implementation
 DWGraph_DS class represents a directed weighted graph, represented by a HashMap.
 The reason we chose to represent the graph in a HashMap is because it allows easy access to each node in the graph, therefor questions like whether two nodes are connected 
 and how many edges are in the graph can be answered in O(1). Adding a new node to the graph, or connecting two nodes in the graph with an edge, can also be done easily in O(1). 
