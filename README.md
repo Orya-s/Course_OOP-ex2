@@ -38,8 +38,10 @@ the other node's neighbors list.
 # How do I play?
 ### Clone repository:
 $ git clone https://github.com/Orya-s/OOP-ex2.git
+Then enter you ID and the wanted game level and press start!
 
-See our [Wiki] for full documentation, examples, operational details and other information.
+
+See our [reference style][Wiki] for full documentation, examples, operational details and other information.
 [Wiki]: https://github.com/Orya-s/OOP-ex2/wiki
 
 
