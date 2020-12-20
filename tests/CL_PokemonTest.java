@@ -9,7 +9,6 @@ class CL_PokemonTest {
 
     @Test
     void get_edge() {
-        CL
         edge_data _edge= new edgeData(1,2,3.5);
 
     }

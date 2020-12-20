@@ -138,7 +138,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     /**
      * Returns the length of the shortest path between two nodes- source and destination.
-     * This function is using the Dijkstra algorithm. The Dijkstra function is getting the source node and
+     * This function is using the Dijkstra algorithm. The Dijkstra function recieves the source node and
      * the destination node and is setting the weight of every node in the path between them as the distance
      * from the source node. Until the algorithm finds all the ways to get to the destination node
      * and sets the weight of destination node with the distance of the shortest path.
