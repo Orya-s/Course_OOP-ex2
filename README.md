@@ -33,7 +33,7 @@ Another option is to open the command line in the package where you saved the ja
 ```
 java -jar Ex2.jar <enter_your_id_here> <enter_the_wanted_level_here>
 ```
-and the game will start in the wanted gave level.
+and the game will start in the wanted game level.
 
 
 ## Clone repository:
