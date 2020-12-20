@@ -36,7 +36,7 @@ java -jar Ex2.jar <enter_your_id_here> <enter_the_wanted_level_here>
 and the game will start in the wanted gave level.
 
 
-### Clone repository:
+## Clone repository:
 ```
 $ git clone https://github.com/Orya-s/OOP-ex2.git       
 ```
