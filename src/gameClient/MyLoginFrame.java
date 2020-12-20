@@ -24,7 +24,9 @@ public class MyLoginFrame extends JFrame{
     private Arena _ar;
     private MyLoginPanel p;
 
-
+    /**
+     * default constructor
+     */
     MyLoginFrame(String a) {
         super(a);
         this.setSize(350, 200);
@@ -32,13 +34,6 @@ public class MyLoginFrame extends JFrame{
         this.setVisible(true);
     }
 
-    public int invisible(){
-        if(!(this.p.isVisible())) {
-            this.setVisible(false);
-            return 1;
-        }
-        return 0;
-    }
 
     public void loginPage() {
         p = new MyLoginPanel();

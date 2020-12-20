@@ -4,8 +4,6 @@ import api.geo_location;
 
 /**
  * This class represents a simple world 2 frame conversion (both ways).
- * @author boaz.benmoshe
- *
  */
 
 public class Range2Range {

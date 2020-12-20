@@ -31,7 +31,9 @@ public class MyFrame extends JFrame{
 	private JLabel label1;
 	private ImageIcon image2;
 
-
+	/**
+	 * default constructor
+	 */
 	MyFrame(String a) {
 		super(a);
 		int _ind = 0;
@@ -40,6 +42,10 @@ public class MyFrame extends JFrame{
 		this.setVisible(true);
 	}
 
+	/**
+	 * implementing the graphics that the function is giving
+	 * @param g
+	 */
 	public void paint(Graphics g) {
 		MyPanel myPanel = new MyPanel(this._w2f);
 		this.add(myPanel);
@@ -63,10 +69,16 @@ public class MyFrame extends JFrame{
 		}
 	}
 
+	/**
+	 * @param l the time left to the end of the game
+	 */
 	public void timeToEndGame(long l) {
 		time= (float)l/100;
 	}
 
+	/**
+	 * @param grade the grade the player has in the game so far
+	 */
 	public void gameGrade(int grade) {
 		this.grade= grade;
 	}
@@ -102,6 +114,10 @@ public class MyFrame extends JFrame{
 			}
 		}
 
+		/**
+		 * This function is drawing the logo picture and the background picture in the game
+		 * @param g
+		 */
 		private void drawTitle(Graphics g){
 
 			//adding background picture
@@ -117,13 +133,13 @@ public class MyFrame extends JFrame{
 			image2= new ImageIcon("./data/pokemon_logo.png");
 			g.drawImage(image2.getImage(),340,20,300,150,this);
 
-//			label1= new JLabel("Time left:");
-//			label1.setBounds(10,20,800,25);
-//			add(label1);
-//			g.drawString(label1.getText(), 50,50);
-
 		}
-		public  void grades(Graphics g){
+
+		/**
+		 * This function is drawing the grades of the agents in the game
+		 * @param g
+		 */
+		public void grades(Graphics g){
 			double points = 0;
 			for (CL_Agent i : _ar.getAgents()) {
 				points = i.getValue();
@@ -133,6 +149,9 @@ public class MyFrame extends JFrame{
 			}
 		}
 
+		/**
+		 * This function is drawing the timer for the player to know how much time is left for the game
+		 */
 		public void drawTimer(Graphics g){
 			g.setColor(Color.blue);
 			g.setFont(new Font(	"SERIF",1,18) );
@@ -150,6 +169,10 @@ public class MyFrame extends JFrame{
 			}
 			this.revalidate();
 		}
+
+		/**
+		 * This function is drawing the graph for the game
+		 */
 		private void drawGraph(Graphics g) {
 			if(_w2f != null && _ar!= null) {
 				directed_weighted_graph gg = _ar.getGraph();
@@ -168,6 +191,11 @@ public class MyFrame extends JFrame{
 			}
 			this.revalidate();
 		}
+
+		/**
+		 * This function is drawing the Pokemons in the game
+		 * @param g
+		 */
 		private void drawPokemons(Graphics g) {
 			List<CL_Pokemon> fs = _ar.getPokemons();
 			if(fs!=null) {
@@ -192,6 +220,10 @@ public class MyFrame extends JFrame{
 			this.revalidate();
 
 		}
+		/**
+		 * This function is drawing the agents in the game
+		 * @param g
+		 */
 		private void drawAgents(Graphics g) {
 			if(_w2f != null && _ar!= null) {
 				List<CL_Agent> rs = _ar.getAgents();
@@ -211,6 +243,13 @@ public class MyFrame extends JFrame{
 			}
 			this.revalidate();
 		}
+
+		/**
+		 * This function is drawing the nodes in the game
+		 * @param n
+		 * @param r
+		 * @param g
+		 */
 		private void drawNode(node_data n, int r, Graphics g) {
 			if(_w2f != null && _ar!= null) {
 				geo_location pos = n.getLocation();
@@ -220,6 +259,12 @@ public class MyFrame extends JFrame{
 			}
 			this.revalidate();
 		}
+
+		/**
+		 * This function is drawing the edges in the game
+		 * @param e
+		 * @param g
+		 */
 		private void drawEdge(edge_data e, Graphics g) {
 			if(_w2f != null && _ar!= null) {
 				directed_weighted_graph gg = _ar.getGraph();

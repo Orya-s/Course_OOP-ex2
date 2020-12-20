@@ -42,6 +42,11 @@ public class Ex2 implements Runnable {
     }
 
 
+    /**
+     * running the game
+     * this function is starting the game by initializing the locations of the pokemons and the agents
+     * (with the init function) and while the game is still running moves the agents (with the moveAgents function)
+     */
     @Override
     public void run() {
         if (lframe){
@@ -148,8 +153,8 @@ public class Ex2 implements Runnable {
     }
     /**
      * This function returns the key of the node the agent is going to move to.
-     * @param g
-     * @param src
+     * @param g the graph the game is running on
+     * @param src the node the agent is currently on
      * @return
      */
     private static int nextNode(directed_weighted_graph g, int src, int ag_id) {
@@ -164,17 +169,6 @@ public class Ex2 implements Runnable {
             Arena.updateEdge(temp, g);
             if (temp.get_edge().getSrc() == src) {
                 destination.put(temp.get_edge().getSrc(), -1);
-                boolean changeDT= true;
-//                if (temp.get_edge().getWeight()<0.3) {    ///////////// added later
-//                    dt = dt - 20;
-//                    changeDT= false;
-//                }
-//                else  {
-//                    if (!changeDT) {
-//                        dt = dt + 20;
-//                        changeDT = true;
-//                    }
-//                }
                 return temp.get_edge().getDest();
             }
         }
@@ -206,7 +200,6 @@ public class Ex2 implements Runnable {
                     if (temp.getValue() > value) key = tempSrc;
                 }
             }
-
         }
 
         //change dest
@@ -248,6 +241,11 @@ public class Ex2 implements Runnable {
         return ll.get(1).getKey();
     }
 
+    /**
+     * This function is initializing the game ont the given graph
+     * @param game
+     * @param gg
+     */
     private void init(game_service game, directed_weighted_graph gg) {
         String fs = game.getPokemons();
 //        directed_weighted_graph gg = game.getJava_Graph_Not_to_be_used();
