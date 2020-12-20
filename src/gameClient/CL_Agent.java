@@ -133,7 +133,7 @@ public class CL_Agent {
 	}
 
 	/**
-	 * This function returns the next node the agent is moving to
+	 * This function returns the key of the next node the agent is moving to
 	 * @return
 	 */
 	public int getNextNode() {
