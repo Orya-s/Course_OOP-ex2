@@ -28,7 +28,12 @@ DWGraph_Algo class represents the regular Graph Theory algorithms including:
 DWGraph_DS class represents a directed weighted graph, represented by a HashMap. <br /> The reason we chose to represent the graph in a HashMap is because it allows easy access to each node in the graph, therefor questions like whether two nodes are connected and how many edges are in the graph can be answered in O(1). Adding a new node to the graph, or connecting two nodes in the graph with an edge, can also be done easily in O(1).  Connecting simply requires adding each of the nodes to the other node's neighbors list with the wanted weight, and removing an edge requires removing each of the nodes from the other node's neighbors list. 
 
 ## How do I play?
-Download the Ex2.jar file, then open it and enter you ID and the wanted game level and press start!
+Download the Ex2.jar file and the data folder, then click twice on the jar file and enter you ID and the wanted game level and press start!
+Another option is to open the command line in the package where you saved the jar and the data folder and type:
+```
+java -jar Ex2.jar <enter_your_id_here> <enter_the_wanted_level_here>
+```
+and the game will start in the wanted gave level.
 
 
 ### Clone repository:
