@@ -14,8 +14,10 @@ The higher level the player is choosing- the more complicated the graph structur
 The src-api package contains a number of classes to implement a graph, such as: NodeData (implementing the node_data interface), edgeData (implementing the edge_data interface), GeoLocation (implementing the geo_location interface), DWGraph_DS (implementing the directed_weighted_graph interface) and the DWGraph_Algo (implementing the dw_graph_algorithms interface). Each class is being used to create the final graph structure that the game is using, and to activate the game. <br />  
 The agents on the graph are constantly calculating the distance between them and the pokemons on the graph, using the Dijkstra algorithm. <br />
 This algorithms allows to find the shortest path to a target node in a directed weighted graph in a fast and efficient way. Therefor the agents have the ability to catch
-as many pokemons as they can without wasting time, which helps them achiving a high grade in the game.                                                                                                       
-For more information on the algorithm: https://brilliant.org/wiki/dijkstras-short-path-finder/
+as many pokemons as they can without wasting time, which helps them achiving a high grade in the game. <br /> 
+For more information on the algorithm: https://brilliant.org/wiki/dijkstras-short-path-finder/ <br /> 
+
+![icon](https://upload.wikimedia.org/wikipedia/commons/5/57/Dijkstra_Animation.gif)
 
 ## Other Algorithms
 DWGraph_Algo class represents the regular Graph Theory algorithms including:
