@@ -33,7 +33,7 @@ and how many edges are in the graph can be answered in O(1). Adding a new node t
 
 ## How do I play?
 ### Clone repository:
-$ git clone https://github.com/Orya-s/OOP-ex2.git                                                                                                                       
+''' $ git clone https://github.com/Orya-s/OOP-ex2.git                                                                                                                       
 Then enter you ID and the wanted game level and press start!
 
 
