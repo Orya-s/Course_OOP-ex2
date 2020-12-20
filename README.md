@@ -1,4 +1,5 @@
-# OOP - ex2                                                                                  ![icon](https://seeklogo.com/images/P/Pokemon-logo-497D61B223-seeklogo.com.png)
+![icon](https://seeklogo.com/images/P/Pokemon-logo-497D61B223-seeklogo.com.png)
+# OOP - ex2 
 ### Ex2 contains the following code packages: 
 - api- containing the implementation of a directed weighted graph.
 - gameClient- containing the implementation of the Pokemon game.
