@@ -80,7 +80,7 @@ public class Ex2 implements Runnable {
             if (System.currentTimeMillis() - startTime > 40000)
                 dt = 85;
             if (System.currentTimeMillis() - startTime > 50000)
-                dt = 80;
+                dt = 80;    
 
             moveAgents(game, gg);
             try {
