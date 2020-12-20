@@ -17,9 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * This class represents a multi Agents Arena which move on a graph - grabs Pokemons and avoid the Zombies.
- * @author boaz.benmoshe
- *
+ * This class represents a multi Agents Arena which move on a graph and grabs Pokemon's.
  */
 public class Arena {
 	public static final double EPS1 = 0.001, EPS2=EPS1*EPS1, EPS=EPS2;
@@ -30,9 +28,15 @@ public class Arena {
 	private static Point3D MIN = new Point3D(0, 100,0);
 	private static Point3D MAX = new Point3D(0, 100,0);
 
-	public Arena() {;
+	/**
+	 * default constructor
+	 */
+	public Arena() {
 		_info = new ArrayList<String>();
 	}
+	/**
+	 * second constructor
+	 */
 	private Arena(directed_weighted_graph g, List<CL_Agent> r, List<CL_Pokemon> p) {
 		_gg = g;
 		this.setAgents(r);
@@ -77,6 +81,13 @@ public class Arena {
 	}
 
 	////////////////////////////////////////////////////
+
+	/**
+	 * This function returns a List of the agents in the specific graph
+	 * @param aa
+	 * @param gg
+	 * @return
+	 */
 	public static List<CL_Agent> getAgents(String aa, directed_weighted_graph gg) {
 		ArrayList<CL_Agent> ans = new ArrayList<CL_Agent>();
 		try {

@@ -32,6 +32,7 @@ public class Ex2 implements Runnable {
         if(a.length == 2){
             id= Integer.parseInt(a[0]);
             scenario_num= Integer.parseInt(a[1]);
+            client.start();
         }
         else{
             lf = new MyLoginFrame("login");
