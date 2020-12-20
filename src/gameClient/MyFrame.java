@@ -105,7 +105,7 @@ public class MyFrame extends JFrame{
 		private void drawTitle(Graphics g){
 
 			//adding background picture
-			image1= new ImageIcon("./docs/pokemon-wallpaper.jpg");
+			image1= new ImageIcon("./data/pokemon-wallpaper.jpg");
 			double widthScaleFactor = getWidth() / (double)image1.getIconWidth();
 			double heightScaleFactor = getHeight() / (double)image1.getIconHeight();
 			double scaleFactor = (widthScaleFactor > heightScaleFactor)? heightScaleFactor : widthScaleFactor;
@@ -114,7 +114,7 @@ public class MyFrame extends JFrame{
 			g.drawImage(image1.getImage(), 0, 0, width, height, this);
 
 			//adding title picture
-			image2= new ImageIcon("./docs/pokemon_logo.png");
+			image2= new ImageIcon("./data/pokemon_logo.png");
 			g.drawImage(image2.getImage(),340,20,300,150,this);
 
 //			label1= new JLabel("Time left:");
