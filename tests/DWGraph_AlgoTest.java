@@ -59,6 +59,14 @@ class DWGraph_AlgoTest {
     }
 
     @Test
+    void connected_component() {
+        directed_weighted_graph g= graphCreator();
+        DWGraph_Algo ga= new DWGraph_Algo();
+        ga.init(g);
+        System.out.println(ga.connected_components());
+    }
+
+    @Test
     void shortestPath() {
         directed_weighted_graph g= graphCreator();
         dw_graph_algorithms ga= new DWGraph_Algo();
@@ -126,6 +134,7 @@ class DWGraph_AlgoTest {
         g1.addNode(n10);
 
         g1.connect(n1.getKey(),n2.getKey(),3.0);
+        g1.connect(n2.getKey(),n1.getKey(),2.0);
         g1.connect(n1.getKey(),n3.getKey(),1);
         g1.connect(n3.getKey(),n2.getKey(),1);
         g1.connect(n0.getKey(),n2.getKey(),4.5);

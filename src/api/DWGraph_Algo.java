@@ -185,6 +185,62 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return getPath(dw_graph.getNode(src), dw_graph.getNode(dest));
     }
 
+    public List<NodeData> connected_component(int ID) {
+        List<NodeData> ans1 = new LinkedList<NodeData>();
+        Queue<NodeData> checklist = new LinkedList<>();
+        if (dw_graph == null || dw_graph.getV().size() == 0 || !dw_graph.getV().contains(dw_graph.getNode(ID)))
+            return ans1;
+        ans1.add((NodeData) dw_graph.getNode(ID));
+        checklist.add((NodeData) dw_graph.getNode(ID));
+        resetTag(dw_graph, 0);
+        while (!checklist.isEmpty()) {
+            NodeData temp = checklist.poll();
+            if (temp.getTag() == 0) {
+                for (node_data n : temp.getNi()) {
+                    ans1.add((NodeData) dw_graph.getNode(n.getKey()));
+                    checklist.add((NodeData) dw_graph.getNode(n.getKey()));
+                    n.setTag(1);
+                }
+            }
+        }
+
+        List<NodeData> ans2 = new LinkedList<NodeData>();
+        if (dw_graph == null || dw_graph.getV().size() == 0 || !dw_graph.getV().contains(dw_graph.getNode(ID)))
+            return ans2;
+        ans2.add((NodeData) dw_graph.getNode(ID));
+        checklist.add((NodeData) dw_graph.getNode(ID));
+        resetTag(dw_graph, 0);
+        while (!checklist.isEmpty()) {
+            NodeData temp = checklist.poll();
+            if (temp.getTag() == 0) {
+                for (node_data n : temp.getParents()) {
+                    ans2.add((NodeData) dw_graph.getNode(n.getKey()));
+                    checklist.add((NodeData) dw_graph.getNode(n.getKey()));
+                    n.setTag(1);
+                }
+            }
+        }
+
+        List<NodeData> ans = new LinkedList<NodeData>();
+        for (NodeData n: ans1) {
+            if(ans2.contains(n))
+                ans.add(n);
+        }
+        return ans;
+    }
+
+    public List<List<NodeData>> connected_components() {
+        List<List<NodeData>> ans = new LinkedList<>();
+        List<NodeData> temp = new LinkedList<NodeData>();
+        for (node_data n : dw_graph.getV()) {
+            if (n.getTag() == 0) {
+                temp = connected_component(n.getKey());
+                ans.add(temp);
+            }
+        }
+        return ans;
+    }
+
     /**
      * Saves this weighted directed graph to the given file name, using json serialization.
      * @param file - the file name.

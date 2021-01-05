@@ -8,7 +8,7 @@ import java.util.HashMap;
  * Each node has a unique ID, Tag, String of info, and two HashMap<> of neighbors (edges "coming" to the node,
  * and edges "leaving" node).
  */
-public class NodeData implements node_data, java.io.Serializable {
+public class  NodeData implements node_data, java.io.Serializable {
 
     private int key, tag;
     private String info;
