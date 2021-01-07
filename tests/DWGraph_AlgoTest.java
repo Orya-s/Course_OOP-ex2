@@ -63,7 +63,7 @@ class DWGraph_AlgoTest {
         directed_weighted_graph g= graphCreator();
         DWGraph_Algo ga= new DWGraph_Algo();
         ga.init(g);
-        System.out.println(ga.connected_components());
+        System.out.println(ga.connected_component(1));
     }
 
     @Test
@@ -151,6 +151,8 @@ class DWGraph_AlgoTest {
         g1.connect(n3.getKey(),n7.getKey(),6);
         g1.connect(n2.getKey(),n1.getKey(),4);
         g1.connect(n3.getKey(),n6.getKey(),30);
+        g1.connect(n10.getKey(),n6.getKey(),2);
+        g1.connect(2,1,2);
         g1.connect(n10.getKey(),n6.getKey(),2);
 
         return g1;

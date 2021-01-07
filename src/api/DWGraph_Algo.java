@@ -18,6 +18,7 @@ import com.google.gson.*;
  */
 public class DWGraph_Algo implements dw_graph_algorithms {
 
+    private HashMap<Integer, node_data> visited;
     private directed_weighted_graph dw_graph;
 
     /**
@@ -185,53 +186,51 @@ public class DWGraph_Algo implements dw_graph_algorithms {
         return getPath(dw_graph.getNode(src), dw_graph.getNode(dest));
     }
 
-    public List<NodeData> connected_component(int ID) {
-        List<NodeData> ans1 = new LinkedList<NodeData>();
+    public List<node_data> connected_component(int ID) {
+        List<node_data> ans1 = new LinkedList<node_data>();
         Queue<NodeData> checklist = new LinkedList<>();
         if (dw_graph == null || dw_graph.getV().size() == 0 || !dw_graph.getV().contains(dw_graph.getNode(ID)))
             return ans1;
-        ans1.add((NodeData) dw_graph.getNode(ID));
+//        ans1.add((NodeData) dw_graph.getNode(ID));
         checklist.add((NodeData) dw_graph.getNode(ID));
         resetTag(dw_graph, 0);
         while (!checklist.isEmpty()) {
             NodeData temp = checklist.poll();
             if (temp.getTag() == 0) {
+                temp.setTag(1);
                 for (node_data n : temp.getNi()) {
-                    ans1.add((NodeData) dw_graph.getNode(n.getKey()));
-                    checklist.add((NodeData) dw_graph.getNode(n.getKey()));
-                    n.setTag(1);
+//                    ans1.add((NodeData) n);
+                    checklist.add((NodeData) n);
                 }
             }
         }
 
-        List<NodeData> ans2 = new LinkedList<NodeData>();
-        if (dw_graph == null || dw_graph.getV().size() == 0 || !dw_graph.getV().contains(dw_graph.getNode(ID)))
-            return ans2;
+//        List<NodeData> ans2 = new LinkedList<>();
         ans2.add((NodeData) dw_graph.getNode(ID));
         checklist.add((NodeData) dw_graph.getNode(ID));
-        resetTag(dw_graph, 0);
         while (!checklist.isEmpty()) {
             NodeData temp = checklist.poll();
-            if (temp.getTag() == 0) {
+            if (temp.getTag() == 1) {
                 for (node_data n : temp.getParents()) {
-                    ans2.add((NodeData) dw_graph.getNode(n.getKey()));
-                    checklist.add((NodeData) dw_graph.getNode(n.getKey()));
-                    n.setTag(1);
+                    visited.put(n.getKey(), n)         ;
+                    checklist.add((NodeData) n);
                 }
+                temp.setTag(0);
             }
         }
-
-        List<NodeData> ans = new LinkedList<NodeData>();
-        for (NodeData n: ans1) {
-            if(ans2.contains(n))
-                ans.add(n);
+//        Iterator<node_data> it = ((NodeData)graph.get(key)).getNi().iterator();
+        Iterator<node_data> it = visited.values().iterator();
+        while(it.hasNext()){
+            node_data temp = it.next();
+            ans1.add(temp);
         }
-        return ans;
+
+        return ans1;
     }
 
-    public List<List<NodeData>> connected_components() {
-        List<List<NodeData>> ans = new LinkedList<>();
-        List<NodeData> temp = new LinkedList<NodeData>();
+    public List<List<node_data>> connected_components() {
+        List<List<node_data>> ans = new LinkedList<>();
+        List<node_data> temp = new LinkedList<node_data>();
         for (node_data n : dw_graph.getV()) {
             if (n.getTag() == 0) {
                 temp = connected_component(n.getKey());
